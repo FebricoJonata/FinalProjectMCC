@@ -1,13 +1,23 @@
-import 'dart:html';
-import 'dart:ui';
+// import 'dart:html';
+// import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project_mcc/icon_fish_icons.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_grid_button/flutter_grid_button.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter_grid_button/flutter_grid_button.dart';
+
+/*
+navigasi -> logout button - HomePage -> Login Page + alert confirmation - popup(?)
+navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
+
+extra :
+navigasi -> navigation bar - HomeNavBar -> HomePage, Fishes Page, Profile Page
+
+*/
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,41 +26,44 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HOME"),
+        title: const Text("HOME"),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20),
             child: GestureDetector(
+              //jangan lupa navigation ke login pagee !!!
               onTap: () {},
-              child: Icon(Icons.logout_outlined),
+              child: const Icon(Icons.logout_outlined),
             ),
           )
         ],
-        leading: Icon(Icons.home),
+        leading: const Icon(Icons.home),
         titleSpacing: 0,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 30,
-          ),
-          ImgCarousel(),
-          AboutCompany(),
-          ListTile(
-            title: Text('Fishes',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold
+      body: SingleChildScrollView(
+        child: Column(
+          children: const [
+            SizedBox(
+              height: 30,
+            ),
+            ImgCarousel(),
+            AboutCompany(),
+            ListTile(
+              title: Text('Fish Types',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
-          ),
-          // Flexible(
-          //   child: FishTypeGrid(),
-          // ),
-          FishTypeGrid(),
-        ],
+            // Flexible(
+            //   child: FishTypeGrid(),
+            // ),
+            FishTypeGrid(),
+          ],
+        ),
       ),
-      bottomNavigationBar: HomeNavBar(),
+      bottomNavigationBar: const HomeNavBar(),
     );
   }
 }
@@ -152,7 +165,7 @@ class AboutCompany extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return const ListTile(
       title: Text(
         'About Us',
         style: TextStyle(
@@ -168,6 +181,7 @@ class AboutCompany extends StatelessWidget {
       ),
       contentPadding: EdgeInsets.all(15),
       // minVerticalPadding: 10,
+      
     );
   }
 }
@@ -176,6 +190,7 @@ class AboutCompany extends StatelessWidget {
 class FishTypeGridItem extends StatelessWidget {
   const FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg});
 
+  //tambah navigation --> class(?)
   final String srcBackImg;
   final String fishType;
 
@@ -209,6 +224,10 @@ class FishTypeGridItem extends StatelessWidget {
             ),  
           ),
         ),
+        GestureDetector(
+          //navigation ke fish pagee !!!! with the fish type as its arguments.
+          onTap: () {},
+        )
       ],
     );
   }
@@ -227,11 +246,14 @@ class _FishTypeGridState extends State<FishTypeGrid> {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
-      crossAxisSpacing: 20,
+      crossAxisSpacing: 30,
+      mainAxisSpacing: 30,
       padding: EdgeInsets.all(40),
       children: [
         FishTypeGridItem(fishType: 'Freshwater', srcBackImg: '../asset/freshwater.jpg'),
-        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
+        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg'),
+        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: '../asset/deepsea.jpg'),
+        // FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
       ],
     );
   }
@@ -251,7 +273,7 @@ class _HomeNavBarState extends State<HomeNavBar> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       fixedColor: Colors.white,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home_outlined,
@@ -261,6 +283,10 @@ class _HomeNavBarState extends State<HomeNavBar> {
         BottomNavigationBarItem(
           icon: Icon(Icon_fish.fish),
           label: 'Fishes',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle_outlined),
+          label: 'Profile',
         )
       ],
       // selectedIndex: ,
