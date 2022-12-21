@@ -1,20 +1,23 @@
 // import 'dart:html';
 // import 'dart:ui';
 
+import 'dart:html';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project_mcc/icon_fish_icons.dart';
+import 'package:final_project_mcc/temppage.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:flutter_grid_button/flutter_grid_button.dart';
 
 /*
-navigasi -> logout button - HomePage -> Login Page + alert confirmation - popup(?)
+belum :
+navigasi -> logout button - HomePage -> Login Page 
 navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
-
-extra :
-navigasi -> navigation bar - HomeNavBar -> HomePage, Fishes Page, Profile Page
 
 */
 
@@ -28,14 +31,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("HOME"),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              //jangan lupa navigation ke login pagee !!!
-              onTap: () {},
-              child: const Icon(Icons.logout_outlined),
-            ),
-          )
+          //jangan lupa navigation ke login pagee !!!
+          LogoutButtonAlert()
         ],
         leading: const Icon(Icons.home),
         titleSpacing: 0,
@@ -226,7 +223,14 @@ class FishTypeGridItem extends StatelessWidget {
         ),
         GestureDetector(
           //navigation ke fish pagee !!!! with the fish type as its arguments.
-          onTap: () {},
+          onTap: () => {
+            Navigator.pushAndRemoveUntil(
+              context, 
+              MaterialPageRoute(
+                builder: (context) => TempPage(),
+              ), 
+              (route) => false)
+          },
         )
       ],
     );
@@ -259,6 +263,83 @@ class _FishTypeGridState extends State<FishTypeGrid> {
   }
 }
 
+
+class LogoutAlert extends StatelessWidget {
+  const LogoutAlert({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Logout of your account?', textAlign: TextAlign.center,),
+      titleTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 25,
+        fontWeight: FontWeight.bold
+      ),
+      titlePadding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 15),
+      buttonPadding: EdgeInsets.zero,
+      actions: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.symmetric(horizontal: BorderSide(color: Color.fromARGB(136, 216, 216, 216), width: 2))
+          ),
+          // width: double.infinity,
+          child: CupertinoDialogAction(
+            child: Text('Logout'),
+            textStyle: TextStyle(
+              color: Colors.red[600],
+              fontWeight: FontWeight.w600
+            ),
+            onPressed: () => {
+              Navigator.pushAndRemoveUntil(
+                context,
+                //navigasi ke exit page !!!! 
+                MaterialPageRoute(builder: (context) => TempPage()), 
+                (route) => false)
+            },
+          ),
+        ),
+        CupertinoDialogAction(
+          child: Text('Cancel'),
+          textStyle: TextStyle(
+            color: Colors.grey,
+            fontWeight: FontWeight.w600
+          ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        )
+      ],
+      elevation: 24,
+      backgroundColor: Color.fromARGB(240, 255, 255, 255),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20))
+      ),
+    );
+  }
+}
+
+
+class LogoutButtonAlert extends StatelessWidget {
+  const LogoutButtonAlert({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: 20),
+      child: GestureDetector(
+        //jangan lupa navigation ke login pagee !!!
+        onTap: () => {
+          showDialog(
+            context: context, 
+            builder: (_) => LogoutAlert()
+          )
+        },
+        child: const Icon(Icons.logout_outlined),
+      ),
+    );
+  }
+}
 
 // class HomeNavBar extends StatefulWidget {
 //   const HomeNavBar({Key? key}) : super(key: key);
