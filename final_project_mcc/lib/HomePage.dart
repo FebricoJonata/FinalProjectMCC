@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const HomeNavBar(),
+      // bottomNavigationBar: const HomeNavBar(),
     );
   }
 }
@@ -260,41 +260,41 @@ class _FishTypeGridState extends State<FishTypeGrid> {
 }
 
 
-class HomeNavBar extends StatefulWidget {
-  const HomeNavBar({Key? key}) : super(key: key);
+// class HomeNavBar extends StatefulWidget {
+//   const HomeNavBar({Key? key}) : super(key: key);
 
-  @override
-  State<HomeNavBar> createState() => _HomeNavBarState();
-}
+//   @override
+//   State<HomeNavBar> createState() => _HomeNavBarState();
+// }
 
-class _HomeNavBarState extends State<HomeNavBar> {
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      fixedColor: Colors.white,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home_outlined,
-          ),
-          label: 'Home'
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icon_fish.fish),
-          label: 'Fishes',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle_outlined),
-          label: 'Profile',
-        )
-      ],
-      // selectedIndex: ,
-      // onDestinationSelected: ,
-      backgroundColor: Colors.blue.shade600,
-    );
-  }
-}
+// class _HomeNavBarState extends State<HomeNavBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomNavigationBar(
+//       type: BottomNavigationBarType.fixed,
+//       fixedColor: Colors.white,
+//       items: const [
+//         BottomNavigationBarItem(
+//           icon: Icon(
+//             Icons.home_outlined,
+//           ),
+//           label: 'Home'
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icon_fish.fish),
+//           label: 'Fishes',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.account_circle_outlined),
+//           label: 'Profile',
+//         )
+//       ],
+//       // selectedIndex: ,
+//       // onDestinationSelected: ,
+//       backgroundColor: Colors.blue.shade600,
+//     );
+//   }
+// }
 
 
 
