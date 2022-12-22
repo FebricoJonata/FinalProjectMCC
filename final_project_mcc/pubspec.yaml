@@ -64,6 +64,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/carousel/
+    - assets/fishtype/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -96,7 +99,7 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-  fonts:
-      - family: Icon_fish
-        fonts:
-          - asset: fonts/Icon_fish.ttf
+  # fonts:
+  #     - family: Icon_fish
+  #       fonts:
+  #         - asset: fonts/Icon_fish.ttf

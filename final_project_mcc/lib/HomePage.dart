@@ -1,18 +1,9 @@
-// import 'dart:html';
-// import 'dart:ui';
-
-import 'dart:html';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_project_mcc/icon_fish_icons.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-// import 'package:flutter/src/foundation/key.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter_grid_button/flutter_grid_button.dart';
+
 
 /*
 belum :
@@ -53,9 +44,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Flexible(
-            //   child: FishTypeGrid(),
-            // ),
             FishTypeGrid(),
           ],
         ),
@@ -89,12 +77,12 @@ class _ImgCarouselState extends State<ImgCarousel> {
   @override
   Widget build(BuildContext context) {
     List<String> fishImg = [
-      '../asset/ikan_betta.jpeg',
-      '../asset/ikan_cupang.jpeg',
-      '../asset/ikan_guppy.jpeg',
-      '../asset/ikan_koi.jpeg',
-      '../asset/ikan_mas.jpeg',
-      '../asset/ikan_siamese.jpeg'
+      'assets/carousel/ikan_betta.jpeg',
+      'assets/carousel/ikan_cupang.jpeg',
+      'assets/carousel/ikan_guppy.jpeg',
+      'assets/carousel/ikan_koi.jpeg',
+      'assets/carousel/ikan_mas.jpeg',
+      'assets/carousel/ikan_siamese.jpeg'
     ];
 
     return Container(
@@ -193,46 +181,48 @@ class FishTypeGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(srcBackImg),
-              fit: BoxFit.cover,
+    return ClipOval(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(srcBackImg),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        Container(
-          color: Color.fromARGB(255, 161, 161, 161).withOpacity(0.5),
-          width: double.infinity,
-          height: 40,
-          alignment: Alignment.center,
-          child: Text(
-            fishType,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            ),  
+          Container(
+            color: Color.fromARGB(255, 161, 161, 161).withOpacity(0.5),
+            width: double.infinity,
+            height: 40,
+            alignment: Alignment.center,
+            child: Text(
+              fishType,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),  
+            ),
           ),
-        ),
-        GestureDetector(
-          //navigation ke fish pagee !!!! with the fish type as its arguments.
-          onTap: () => {
-            Navigator.pushAndRemoveUntil(
-              context, 
-              MaterialPageRoute(
-                builder: (context) => TempPage(),
-              ), 
-              (route) => false)
-          },
-        )
-      ],
+          GestureDetector(
+            //navigation ke fish pagee !!!! with the fish type as its arguments.
+            onTap: () => {
+              Navigator.pushAndRemoveUntil(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => TempPage(),
+                ), 
+                (route) => false)
+            },
+          )
+        ],
+      ),
     );
   }
 }
@@ -254,11 +244,12 @@ class _FishTypeGridState extends State<FishTypeGrid> {
       mainAxisSpacing: 30,
       padding: EdgeInsets.all(40),
       children: [
-        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: '../asset/freshwater.jpg'),
-        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg'),
-        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: '../asset/deepsea.jpg'),
+        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: 'assets/fishtype/freshwater.jpg'),
+        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: 'assets/fishtype/saltwater.jpg'),
+        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: 'assets/fishtype/deepsea.jpg'),
         // FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
       ],
+      controller: ScrollController(),
     );
   }
 }
@@ -276,7 +267,7 @@ class LogoutAlert extends StatelessWidget {
         fontSize: 25,
         fontWeight: FontWeight.bold
       ),
-      titlePadding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 15),
+      titlePadding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 25),
       buttonPadding: EdgeInsets.zero,
       actions: [
         Container(
