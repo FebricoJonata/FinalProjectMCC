@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 /*
 belum :
 [] navigasi -> logout button - HomePage -> Login Page 
-[] navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
+[v] navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
 tinggal ubah route
 */
 
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("HOME"),
+        title: const Text("Home"),
         actions: [
           //jangan lupa navigation ke login pagee !!!
           LogoutButtonAlert()

@@ -38,7 +38,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.1.1
   image_picker: ^0.8.6
-  flutter_grid_button: ^2.0.0
+  # flutter_grid_button: ^2.0.0
+  easy_image_viewer: ^1.2.0
+  fab_circular_menu: ^1.0.0
+
   
 
 dev_dependencies:
