@@ -1,3 +1,4 @@
+import 'package:final_project_mcc/fishespage.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: FishesPage(fishTypeId: 0,),
     );
   }
 }

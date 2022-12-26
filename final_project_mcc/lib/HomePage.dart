@@ -1,5 +1,6 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:final_project_mcc/fishespage.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,9 @@ import 'package:flutter/material.dart';
 
 /*
 belum :
-navigasi -> logout button - HomePage -> Login Page 
-navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
-
+[] navigasi -> logout button - HomePage -> Login Page 
+[] navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
+tinggal ubah route
 */
 
 
@@ -159,7 +160,8 @@ class AboutCompany extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        'HE Fish is a fish shop that have lists many popular decorative fish... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        textAlign: TextAlign.justify,
         style: TextStyle(
           fontSize: 20,
         ),
@@ -173,11 +175,12 @@ class AboutCompany extends StatelessWidget {
 
 
 class FishTypeGridItem extends StatelessWidget {
-  const FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg});
+  FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg, required this.fishTypeId});
 
   //tambah navigation --> class(?)
   final String srcBackImg;
   final String fishType;
+  int fishTypeId;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +219,7 @@ class FishTypeGridItem extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context, 
                 MaterialPageRoute(
-                  builder: (context) => TempPage(),
+                  builder: (context) => FishesPage(fishTypeId: fishTypeId),
                 ), 
                 (route) => false)
             },
@@ -244,9 +247,9 @@ class _FishTypeGridState extends State<FishTypeGrid> {
       mainAxisSpacing: 30,
       padding: EdgeInsets.all(40),
       children: [
-        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: 'assets/fishtype/freshwater.jpg'),
-        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: 'assets/fishtype/saltwater.jpg'),
-        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: 'assets/fishtype/deepsea.jpg'),
+        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: 'assets/fishtype/freshwater.jpg', fishTypeId: 0,),
+        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: 'assets/fishtype/saltwater.jpg', fishTypeId: 1,),
+        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: 'assets/fishtype/deepsea.jpg', fishTypeId: 2,),
         // FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
       ],
       controller: ScrollController(),
@@ -262,7 +265,7 @@ class LogoutAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Logout of your account?', textAlign: TextAlign.center,),
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         color: Colors.black,
         fontSize: 25,
         fontWeight: FontWeight.bold
@@ -271,7 +274,7 @@ class LogoutAlert extends StatelessWidget {
       buttonPadding: EdgeInsets.zero,
       actions: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border.symmetric(horizontal: BorderSide(color: Color.fromARGB(136, 216, 216, 216), width: 2))
           ),
           // width: double.infinity,
