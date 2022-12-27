@@ -1,10 +1,7 @@
-import 'dart:html';
 
 import 'package:final_project_mcc/detailfishpage.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'HomePage.dart';
 
@@ -23,7 +20,7 @@ FishArticleList
 
 
 class FishesPage extends StatelessWidget {
-  FishesPage({super.key, required this.fishTypeId});
+  FishesPage({super.key, required this.fishTypeId,});
 
   int fishTypeId;
 
@@ -66,8 +63,8 @@ class FishesPage extends StatelessWidget {
           children: [
             //API buat ngambil data fish article (?)
             FishArticleList(fishTypeId: 0,),
-            FishArticleList(fishTypeId: 1),
-            FishArticleList(fishTypeId: 2),
+            FishArticleList(fishTypeId: 1,),
+            FishArticleList(fishTypeId: 2,),
           ]
         ),
         floatingActionButton: FloatingActionButton(
@@ -110,7 +107,7 @@ class FishArticleList extends StatelessWidget {
               Navigator.push(
                 context,
                 //ubah navigasi ke Detail Fish Page with fish as its arguments !!! 
-                MaterialPageRoute(builder: (context) => DetailFishPage(fishTypeId: fishTypeId, imagesrc: fishArticleSrc[arcticleInd]))
+                MaterialPageRoute(builder: (context) => DetailFishPage(fishTypeId: fishTypeId, imagesrc: fishArticleSrc[arcticleInd],))
               )
             },
             child: Card(
