@@ -1,21 +1,16 @@
-// import 'dart:html';
-// import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_project_mcc/icon_fish_icons.dart';
-// import 'package:flutter/cupertino.dart';
+import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/temppage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/src/foundation/key.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter_grid_button/flutter_grid_button.dart';
+
 
 /*
-navigasi -> logout button - HomePage -> Login Page + alert confirmation - popup(?)
-navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
-
-extra :
-navigasi -> navigation bar - HomeNavBar -> HomePage, Fishes Page, Profile Page
-
+belum :
+[] navigasi -> logout button - HomePage -> Login Page 
+[v] navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
+tinggal ubah route
 */
 
 
@@ -26,16 +21,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("HOME"),
+        title: const Text("Home"),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              //jangan lupa navigation ke login pagee !!!
-              onTap: () {},
-              child: const Icon(Icons.logout_outlined),
-            ),
-          )
+          //jangan lupa navigation ke login pagee !!!
+          LogoutButtonAlert()
         ],
         leading: const Icon(Icons.home),
         titleSpacing: 0,
@@ -56,14 +45,11 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Flexible(
-            //   child: FishTypeGrid(),
-            // ),
             FishTypeGrid(),
           ],
         ),
       ),
-      bottomNavigationBar: const HomeNavBar(),
+      // bottomNavigationBar: const HomeNavBar(),
     );
   }
 }
@@ -92,12 +78,12 @@ class _ImgCarouselState extends State<ImgCarousel> {
   @override
   Widget build(BuildContext context) {
     List<String> fishImg = [
-      '../asset/ikan_betta.jpeg',
-      '../asset/ikan_cupang.jpeg',
-      '../asset/ikan_guppy.jpeg',
-      '../asset/ikan_koi.jpeg',
-      '../asset/ikan_mas.jpeg',
-      '../asset/ikan_siamese.jpeg'
+      'assets/carousel/ikan_betta.jpeg',
+      'assets/carousel/ikan_cupang.jpeg',
+      'assets/carousel/ikan_guppy.jpeg',
+      'assets/carousel/ikan_koi.jpeg',
+      'assets/carousel/ikan_mas.jpeg',
+      'assets/carousel/ikan_siamese.jpeg'
     ];
 
     return Container(
@@ -174,7 +160,8 @@ class AboutCompany extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        'HE Fish is a fish shop that have lists many popular decorative fish... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        textAlign: TextAlign.justify,
         style: TextStyle(
           fontSize: 20,
         ),
@@ -188,47 +175,57 @@ class AboutCompany extends StatelessWidget {
 
 
 class FishTypeGridItem extends StatelessWidget {
-  const FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg});
+  FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg, required this.fishTypeId});
 
   //tambah navigation --> class(?)
   final String srcBackImg;
   final String fishType;
+  int fishTypeId;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(srcBackImg),
-              fit: BoxFit.cover,
+    return ClipOval(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(srcBackImg),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        Container(
-          color: Color.fromARGB(255, 161, 161, 161).withOpacity(0.5),
-          width: double.infinity,
-          height: 40,
-          alignment: Alignment.center,
-          child: Text(
-            fishType,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            ),  
+          Container(
+            color: Color.fromARGB(255, 161, 161, 161).withOpacity(0.5),
+            width: double.infinity,
+            height: 40,
+            alignment: Alignment.center,
+            child: Text(
+              fishType,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),  
+            ),
           ),
-        ),
-        GestureDetector(
-          //navigation ke fish pagee !!!! with the fish type as its arguments.
-          onTap: () {},
-        )
-      ],
+          GestureDetector(
+            //navigation ke fish pagee !!!! with the fish type as its arguments.
+            onTap: () => {
+              Navigator.pushAndRemoveUntil(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => FishesPage(fishTypeId: fishTypeId),
+                ), 
+                (route) => false)
+            },
+          )
+        ],
+      ),
     );
   }
 }
@@ -250,51 +247,129 @@ class _FishTypeGridState extends State<FishTypeGrid> {
       mainAxisSpacing: 30,
       padding: EdgeInsets.all(40),
       children: [
-        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: '../asset/freshwater.jpg'),
-        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg'),
-        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: '../asset/deepsea.jpg'),
+        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: 'assets/fishtype/freshwater.jpg', fishTypeId: 0,),
+        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: 'assets/fishtype/saltwater.jpg', fishTypeId: 1,),
+        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: 'assets/fishtype/deepsea.jpg', fishTypeId: 2,),
         // FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
       ],
+      controller: ScrollController(),
     );
   }
 }
 
 
-class HomeNavBar extends StatefulWidget {
-  const HomeNavBar({Key? key}) : super(key: key);
+class LogoutAlert extends StatelessWidget {
+  const LogoutAlert({Key? key}) : super(key: key);
 
-  @override
-  State<HomeNavBar> createState() => _HomeNavBarState();
-}
-
-class _HomeNavBarState extends State<HomeNavBar> {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      fixedColor: Colors.white,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home_outlined,
+    return AlertDialog(
+      title: Text('Logout of your account?', textAlign: TextAlign.center,),
+      titleTextStyle: const TextStyle(
+        color: Colors.black,
+        fontSize: 25,
+        fontWeight: FontWeight.bold
+      ),
+      titlePadding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 25),
+      buttonPadding: EdgeInsets.zero,
+      actions: [
+        Container(
+          decoration: const BoxDecoration(
+            border: Border.symmetric(horizontal: BorderSide(color: Color.fromARGB(136, 216, 216, 216), width: 2))
           ),
-          label: 'Home'
+          // width: double.infinity,
+          child: CupertinoDialogAction(
+            child: Text('Logout'),
+            textStyle: TextStyle(
+              color: Colors.red[600],
+              fontWeight: FontWeight.w600
+            ),
+            onPressed: () => {
+              Navigator.pushAndRemoveUntil(
+                context,
+                //navigasi ke exit page !!!! 
+                MaterialPageRoute(builder: (context) => TempPage()), 
+                (route) => false)
+            },
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icon_fish.fish),
-          label: 'Fishes',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle_outlined),
-          label: 'Profile',
+        CupertinoDialogAction(
+          child: Text('Cancel'),
+          textStyle: TextStyle(
+            color: Colors.grey,
+            fontWeight: FontWeight.w600
+          ),
+          onPressed: (){
+            Navigator.pop(context);
+          },
         )
       ],
-      // selectedIndex: ,
-      // onDestinationSelected: ,
-      backgroundColor: Colors.blue.shade600,
+      elevation: 24,
+      backgroundColor: Color.fromARGB(240, 255, 255, 255),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20))
+      ),
     );
   }
 }
+
+
+class LogoutButtonAlert extends StatelessWidget {
+  const LogoutButtonAlert({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: 20),
+      child: GestureDetector(
+        //jangan lupa navigation ke login pagee !!!
+        onTap: () => {
+          showDialog(
+            context: context, 
+            builder: (_) => LogoutAlert()
+          )
+        },
+        child: const Icon(Icons.logout_outlined),
+      ),
+    );
+  }
+}
+
+// class HomeNavBar extends StatefulWidget {
+//   const HomeNavBar({Key? key}) : super(key: key);
+
+//   @override
+//   State<HomeNavBar> createState() => _HomeNavBarState();
+// }
+
+// class _HomeNavBarState extends State<HomeNavBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomNavigationBar(
+//       type: BottomNavigationBarType.fixed,
+//       fixedColor: Colors.white,
+//       items: const [
+//         BottomNavigationBarItem(
+//           icon: Icon(
+//             Icons.home_outlined,
+//           ),
+//           label: 'Home'
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icon_fish.fish),
+//           label: 'Fishes',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.account_circle_outlined),
+//           label: 'Profile',
+//         )
+//       ],
+//       // selectedIndex: ,
+//       // onDestinationSelected: ,
+//       backgroundColor: Colors.blue.shade600,
+//     );
+//   }
+// }
 
 
 

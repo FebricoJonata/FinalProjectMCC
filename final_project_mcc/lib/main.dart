@@ -1,5 +1,3 @@
-import 'package:final_project_mcc/register.dart';
-import 'package:final_project_mcc/route.dart';
 import 'package:flutter/material.dart';
 import 'homepage.dart';
 
@@ -18,8 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const Register(),
-      onGenerateRoute: RouterGenerator.generateRoute,
+      home: const HomePage(),
     );
   }
 }
