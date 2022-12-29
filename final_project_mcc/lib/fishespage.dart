@@ -8,13 +8,15 @@ import 'HomePage.dart';
 
 /*
 FishesPage
-[ ] navigasi -> Floating action button ke InsertFishPage
+[v] navigasi -> Floating action button ke InsertFishPage
 --TabBarView
 [ ] buat API biar bisa ngambil data banyak ikan per type (path gambar, nama ikan, harga ikan) -> simpan di 1 list
+[ ] cek perlu bikin class beda per type atau cukup 1 aja
 
 FishArticleList
-[ ] navigasi -> on tap -> DetailFishPage with fish as its arguments + fishtypeid -> buat backbutton di detailfishpage
-[ ] ubah nama dan harga sesuai data ikan
+[v?] navigasi -> on tap -> DetailFishPage with fish as its arguments + fishtypeid -> buat backbutton di detailfishpage
+[ ] hapus passing argumen yg ga perlu - nunggu edit dari detailfishpage
+[v] ubah nama dan harga sesuai variabel data ikan
 */
 
 

@@ -10,13 +10,15 @@ import 'HomePage.dart';
 
 /*
 bedanya apa (?)
-[] Back button to direct back to the Fish Page.
+[v] Back button to direct back to the Fish Page.
 [] Button to navigate to the Fishes Page.
 
 DetailFishPage
 [] Button to navigate to the Edit Fish Page. Make sure that only the poster can see this button.
 [] Button to delete the fish article. Make sure that only the poster can see this button.
-[] ubah nama, harga, desc, 
+[] Buat API untuk delete
+[v] ubah nama, harga, desc, pakai variabel
+[] hapus passing argumen yg ga perlu, cukup fishId 
 */
 
 class DetailFishPage extends StatelessWidget {
@@ -38,7 +40,7 @@ class DetailFishPage extends StatelessWidget {
   //hilangin '?'
   String? fishId = "F001"; //buat ambil data dari database
   String fishName;
-  String fishPrice;
+  String fishPrice; //nanti ambilnya lewat database aja pakai fishId, daripada kebanyakan passing argument
   String? fishDesc = "Freshwater fish";
   String? creatorName = "Siapa Ya?";
 

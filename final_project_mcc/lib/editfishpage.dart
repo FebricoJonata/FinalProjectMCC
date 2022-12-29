@@ -12,6 +12,10 @@ import 'HomePage.dart';
 
 
 /*
+
+[] ambil data dari database pakai fishId -- variabel lain gausa di passing lg
+[] hapus passing argumen yg ga perlu
+
 save button - onpressed
 [] validasi field keisi semua, simpen ke database
 
@@ -63,6 +67,7 @@ class _EditFishPageState extends State<EditFishPage> {
   String? newFishDesc;
   File? newPickedGalleryImage;
 
+  //sebenernya cukup fishId biar data lain diambil lg dari database
   get fishId => widget.fishId; //buat database
   get fishTypeId => widget.fishTypeId;
   get fishName => widget.fishName;

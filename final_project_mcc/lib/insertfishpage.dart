@@ -17,8 +17,6 @@ save button - onpressed
 
 */
 
-
-
 class InsertFishPage extends StatefulWidget {
   const InsertFishPage({super.key, required this.fishTypeId});
   final int fishTypeId;
@@ -35,12 +33,13 @@ class _InsertFishPageState extends State<InsertFishPage> {
     DropdownMenuItem(child: Text("Saltwater"), value: 1,),
     DropdownMenuItem(child: Text("Deep Sea"), value: 2,)
   ];
-  int choosedFishType = 0;
+  
   String defaultImage = 'assets/fishtype/icon_ikan.png';
-  File? pickedGalleryImage;
 
   String? fishName;
+  int choosedFishType = 0;
   String? fishPrice;
+  File? pickedGalleryImage;
   String? fishDesc;
   
   get fishTypeId => widget.fishTypeId;
@@ -196,7 +195,7 @@ class _InsertFishPageState extends State<InsertFishPage> {
                       // print(choosedFishType);
                       // print(fishPrice);
                       // print(fishDesc);
-                      //validasi keisi semua, simpen ke database, navigasi ke fishespage? atau homepage aja ya
+                      //validasi keisi semua, simpen ke database
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage())
