@@ -112,6 +112,7 @@ class FishArticleList extends StatelessWidget {
               )
             },
             child: Card(
+              margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
               elevation: 4,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               child: ClipRRect(
