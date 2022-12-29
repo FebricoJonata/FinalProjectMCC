@@ -330,7 +330,7 @@ class LogoutButtonAlert extends StatelessWidget {
             builder: (_) => LogoutAlert()
           )
         },
-        child: const Icon(Icons.logout_outlined, color: Colors.red,),
+        child: const Icon(Icons.logout_rounded, color: Colors.red,),
       ),
     );
   }
