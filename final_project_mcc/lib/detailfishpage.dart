@@ -1,6 +1,7 @@
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:final_project_mcc/editfishpage.dart';
 import 'package:final_project_mcc/fishespage.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,12 @@ DetailFishPage
 */
 
 class DetailFishPage extends StatelessWidget {
-  DetailFishPage({super.key, required this.fishTypeId, required this.imagesrc});
+  DetailFishPage({super.key, 
+    required this.fishTypeId, 
+    required this.imagesrc,
+    required this.fishName,
+    required this.fishPrice,
+  });
 
   int fishTypeId; //jenis ikan
   String imagesrc;
@@ -28,12 +34,13 @@ class DetailFishPage extends StatelessWidget {
     'assets/fishtype/saltwater.jpg',
     'assets/fishtype/deepsea.jpg'
   ];
+
   //hilangin '?'
-  String? fishId; //buat ambil data dari database
-  String? fishName;
-  String? fishPrice;
-  String? fishDesc;
-  String? creatorName;
+  String? fishId = "F001"; //buat ambil data dari database
+  String fishName;
+  String fishPrice;
+  String? fishDesc = "Freshwater fish";
+  String? creatorName = "Siapa Ya?";
 
   @override
   Widget build(BuildContext context) {
@@ -107,13 +114,13 @@ class DetailFishPage extends StatelessWidget {
                 ),
                 Text(
                   //ubah sesuai data
-                  'FishName',
+                  '${fishName}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   //ubah sesuai data
-                  'Price',
+                  'Rp.${fishPrice},-',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 23,
@@ -130,7 +137,7 @@ class DetailFishPage extends StatelessWidget {
                 ),
                 Text(
                   //ubah sesuai data
-                  'FishDesc',
+                  '${fishDesc}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
@@ -144,7 +151,7 @@ class DetailFishPage extends StatelessWidget {
                 ),
                 Text(
                   //ubah sesuai data
-                  'creatorName',
+                  '${creatorName}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
@@ -165,7 +172,15 @@ class DetailFishPage extends StatelessWidget {
           IconButton(
             onPressed: () => {
               //navigasi ke edit page
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TempPage()))
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EditFishPage(
+                fishId: fishId,
+                fishTypeId: fishTypeId, 
+                fishName: fishName, 
+                choosedFishType: 2, 
+                fishPrice: fishPrice, 
+                fishDesc: fishDesc, 
+                pickedGalleryImage: imagesrc
+                )))
             }, 
             icon: Icon(Icons.edit, color: Colors.grey[700], size: 30,)
           ),

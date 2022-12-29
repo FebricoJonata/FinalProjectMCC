@@ -1,12 +1,12 @@
-
 import 'dart:io';
 
 import 'package:final_project_mcc/fishespage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'HomePage.dart';
 
@@ -15,35 +15,68 @@ import 'HomePage.dart';
 save button - onpressed
 [] validasi field keisi semua, simpen ke database
 
+extra: pikirin cara nyimpen + nampilin gambar kalo upload dari web sama HP
+soalnya beda tipe file + ngaruh ke page lain (fishespage, detailfish) - insertfish
+dari asset project -> assetImage
+dari HP -> FileImage -- path File - String
+dari Web(Chrome) -> NetworkImage -- dapetnya URL
+cara akalin (?) simpen tipe image di database -- upload dari web, hp, asset
 */
 
 
+class EditFishPage extends StatefulWidget {
+  const EditFishPage({super.key, 
+    required this.fishId,
+    required this.fishTypeId,
+    required this.fishName, 
+    required this.choosedFishType,
+    required this.fishPrice,
+    required this.fishDesc,
+    required this.pickedGalleryImage
+  });
 
-class InsertFishPage extends StatefulWidget {
-  const InsertFishPage({super.key, required this.fishTypeId});
-  final int fishTypeId;
-  
+  final fishId;
+  final fishTypeId;
+  final choosedFishType;
+  final fishName;
+  final fishPrice;
+  final fishDesc;
+  final pickedGalleryImage;
+
   @override
-  State<InsertFishPage> createState() => _InsertFishPageState();
+  State<EditFishPage> createState() => _EditFishPageState();
 }
 
-class _InsertFishPageState extends State<InsertFishPage> {
-  
+class _EditFishPageState extends State<EditFishPage> {
+
   List<DropdownMenuItem<int>> fishTypeOption = [
-    // DropdownMenuItem(child: Text("  --"), value: -1,),
     DropdownMenuItem(child: Text("Freshwater"), value: 0,),
     DropdownMenuItem(child: Text("Saltwater"), value: 1,),
     DropdownMenuItem(child: Text("Deep Sea"), value: 2,)
   ];
-  int choosedFishType = 0;
-  String defaultImage = 'assets/fishtype/icon_ikan.png';
-  File? pickedGalleryImage;
 
-  String? fishName;
-  String? fishPrice;
-  String? fishDesc;
-  
+  // String defaultImage = 'assets/fishtype/icon_ikan.png';
+
+  String? newFishName;
+  int? newChoosedFishType = 0;
+  String? newFishPrice;
+  String? newFishDesc;
+  File? newPickedGalleryImage;
+
+  get fishId => widget.fishId; //buat database
   get fishTypeId => widget.fishTypeId;
+  get fishName => widget.fishName;
+  get choosedFishType => widget.choosedFishType;
+  get fishPrice => widget.fishPrice;
+  get fishDesc => widget.fishDesc;
+  get pickedGalleryImage => widget.pickedGalleryImage;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    newChoosedFishType = choosedFishType;
+    super.initState();
+  }
 
   Future PickGalleryImage() async {
       XFile? galleryImage;    
@@ -53,7 +86,7 @@ class _InsertFishPageState extends State<InsertFishPage> {
           return;
         }else{
           setState(() {
-            pickedGalleryImage = File(galleryImage!.path);
+            newPickedGalleryImage = File(galleryImage!.path);
             // finalImage = pickedGalleryImage!.path;
           });
         }
@@ -61,14 +94,6 @@ class _InsertFishPageState extends State<InsertFishPage> {
         print('Unable to pick image');
       }
   }
-
-  // void dropDownCallBack(int? selectedValue){
-  //   if(selectedValue is int){
-  //       setState(() {
-  //       choosedFishType = selectedValue;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,10 +130,11 @@ class _InsertFishPageState extends State<InsertFishPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.grey,
-                    image: pickedGalleryImage == null?
-                      DecorationImage(image: AssetImage(defaultImage), scale: 0.3)
-                      : kIsWeb? DecorationImage(image: NetworkImage(pickedGalleryImage!.path), fit: BoxFit.cover)
-                      : DecorationImage(image: FileImage(pickedGalleryImage!), fit: BoxFit.cover)
+                    image: newPickedGalleryImage == null?
+                      DecorationImage(image: AssetImage(pickedGalleryImage), fit: BoxFit.cover)
+                      : kIsWeb? DecorationImage(image: NetworkImage(newPickedGalleryImage!.path), fit: BoxFit.cover)
+                      : DecorationImage(image: FileImage(newPickedGalleryImage!), fit: BoxFit.cover)
+                      // : DecorationImage(image: AssetImage(newPickedGalleryImage!.path), fit: BoxFit.cover) -- gabisa
                       //kalo pake chrome filenya bentuk URL, kalo dari hp gambarnya bentuk file
                       //kIsWeb buat ngecek app nya dijalanin lewat web atau ga
                   ),
@@ -134,8 +160,9 @@ class _InsertFishPageState extends State<InsertFishPage> {
               child: Column(
                 children: [
                   TextFormField(
+                    initialValue: fishName,
                     onChanged: (value) => setState(() {
-                      fishName = value;
+                      newFishName = value;
                     }),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
@@ -146,13 +173,11 @@ class _InsertFishPageState extends State<InsertFishPage> {
                   SizedBox(height: 20,),
                   DropdownButtonFormField(
                     items: fishTypeOption, 
-                    value: choosedFishType,
+                    value: newChoosedFishType,
                     onChanged: (int? selectedValue){
-                      setState(() {
-                        if(selectedValue is int){
-                          choosedFishType = selectedValue;
-                        }
-                      });
+                      if(selectedValue is int){
+                        newChoosedFishType = selectedValue;
+                      }
                     },
                     icon: Icon(Icons.expand_more_rounded),
                     // hint: Text("Choose Fish Type Here"),
@@ -164,9 +189,10 @@ class _InsertFishPageState extends State<InsertFishPage> {
                   ),
                   SizedBox(height: 20,),
                   TextFormField(
+                    initialValue: fishPrice,
                     keyboardType: TextInputType.number,
                     onChanged: (value) => setState(() {
-                      fishPrice = value;
+                      newFishPrice = value;
                     }),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
@@ -176,8 +202,9 @@ class _InsertFishPageState extends State<InsertFishPage> {
                   ),
                   SizedBox(height: 20,),
                   TextFormField(
+                    initialValue: fishDesc,
                     onChanged: (value) => setState(() {
-                      fishDesc = value;
+                      newFishDesc = value;
                     }),
                     maxLines: 4,
                     maxLength: 150,
@@ -196,14 +223,16 @@ class _InsertFishPageState extends State<InsertFishPage> {
                       // print(choosedFishType);
                       // print(fishPrice);
                       // print(fishDesc);
-                      //validasi keisi semua, simpen ke database, navigasi ke fishespage? atau homepage aja ya
+                      // print(pickedGalleryImage);
+                      //validasi keisi semua, simpen ke database, navigasi ke homepage
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage())
                       );
                       showDialog(
                         context: context, 
-                        builder: (_) => CreateArticleAlertDialog()
+                        builder: (_) => EditArticleAlertDialog()
                       );
                     }, 
                     child: Text("Save",
@@ -230,13 +259,13 @@ class _InsertFishPageState extends State<InsertFishPage> {
 }
 
 
-class CreateArticleAlertDialog extends StatelessWidget {
-  const CreateArticleAlertDialog({Key? key}) : super(key: key);
+class EditArticleAlertDialog extends StatelessWidget {
+  const EditArticleAlertDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("New fish article created succesfully ^^", textAlign: TextAlign.center,),
+      title: Text("Fish article edited succesfully ^^", textAlign: TextAlign.center,),
       titleTextStyle: const TextStyle(
         color: Colors.black,
         fontSize: 20,
@@ -253,88 +282,3 @@ class CreateArticleAlertDialog extends StatelessWidget {
     );
   }
 }
-
-
-// class InsertFishPage extends StatelessWidget {
-//   InsertFishPage({super.key, required this.fishTypeId});
-
-//   int fishTypeId;
-//   String finalImage = 'assets/fishtype/icon_ikan.png';
-//   File? pickedGalleryImage;
-
-//   Future PickGalleryImage() async {
-//       XFile? galleryImage;    
-//       try {
-//         galleryImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-//         if(galleryImage == null){
-//           return;
-//         }else{
-//           setState(() {
-//             pickedGalleryImage = File(galleryImage!.path);
-//           });
-//         }
-//       } on PlatformException{
-//         print('Unable to pick image');
-//       }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("New Fish"),
-//         titleSpacing: 0,
-//         actions: const [
-//           //atur navigasi di homepage.dart
-//           LogoutButtonAlert()
-//         ],
-//         leading: BackButton(
-//           color: Colors.white,
-//           onPressed: () => {
-//             Navigator.pushAndRemoveUntil(
-//                 context,
-//                 MaterialPageRoute(
-//                     builder: (context) => FishesPage(fishTypeId: fishTypeId)),
-//                 (route) => false)
-//           },
-//         ),
-//       ),
-//       body: Column(
-//         children: [
-//           SizedBox(width: 20),
-//           Container(
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(20),
-//               child: Image(image: AssetImage(finalImage))
-//             ),
-//           ),
-//           Container(
-//             decoration: BoxDecoration(
-//               color: Colors.blue,
-//               shape: BoxShape.circle
-//             ),
-//             child: IconButton(
-//               onPressed: () async{
-//                 PickGalleryImage();
-//               }, 
-//               icon: Icon(Icons.collections_rounded, color: Colors.white,),
-//             )
-//           ),
-//           // Container(
-//           //   decoration: BoxDecoration(
-//           //     color: Colors.blue,
-//           //     shape: BoxShape.circle
-//           //   ),
-//           //   child: IconButton(
-//           //     onPressed: () async{
-//           //       await newImage.pickImage(source: ImageSource.camera);
-//           //       // await newImage.pickImage(source: ImageSource.camera);
-//           //     }, 
-//           //     icon: Icon(Icons.camera_alt_rounded, color: Colors.white,),
-//           //   )
-//           // )
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -97,6 +97,9 @@ class FishArticleList extends StatelessWidget {
     'assets/freshwater/killifish.jpg'
   ];
 
+  String fishName = "Killi";
+  String fishPrice = "4.000";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -108,7 +111,12 @@ class FishArticleList extends StatelessWidget {
               Navigator.push(
                 context,
                 //ubah navigasi ke Detail Fish Page with fish as its arguments !!! 
-                MaterialPageRoute(builder: (context) => DetailFishPage(fishTypeId: fishTypeId, imagesrc: fishArticleSrc[arcticleInd],))
+                MaterialPageRoute(builder: (context) => DetailFishPage(
+                  fishTypeId: fishTypeId, 
+                  imagesrc: fishArticleSrc[arcticleInd],
+                  fishName: fishName,
+                  fishPrice: fishPrice,
+                ))
               )
             },
             child: Card(
@@ -129,7 +137,7 @@ class FishArticleList extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         //ubah sesuai nama ikan
-                        'Fish Name',
+                        '${fishName}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -139,7 +147,7 @@ class FishArticleList extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         //ubah sesuai harga ikan
-                        'Rp. Price',
+                        'Rp.${fishPrice}',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
