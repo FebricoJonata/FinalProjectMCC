@@ -111,7 +111,8 @@ class _ImgCarouselState extends State<ImgCarousel> {
               enlargeFactor: 0.3,
               aspectRatio: 2,
               viewportFraction: 0.8,
-              height: MediaQuery.of(context).size.height/4.5,
+              // height: MediaQuery.of(context).size.height/4.5,
+              height: 190,
               autoPlay: true,
               // clipBehavior: Clip.nones,
               onPageChanged: (ind, _){
@@ -329,7 +330,7 @@ class LogoutButtonAlert extends StatelessWidget {
             builder: (_) => LogoutAlert()
           )
         },
-        child: const Icon(Icons.logout_outlined),
+        child: const Icon(Icons.logout_outlined, color: Colors.red,),
       ),
     );
   }

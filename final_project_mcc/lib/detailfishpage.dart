@@ -15,6 +15,7 @@ bedanya apa (?)
 DetailFishPage
 [] Button to navigate to the Edit Fish Page. Make sure that only the poster can see this button.
 [] Button to delete the fish article. Make sure that only the poster can see this button.
+[] ubah nama, harga, desc, 
 */
 
 class DetailFishPage extends StatelessWidget {
@@ -105,11 +106,13 @@ class DetailFishPage extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
+                  //ubah sesuai data
                   'FishName',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
                 ),
                 Text(
+                  //ubah sesuai data
                   'Price',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -126,6 +129,7 @@ class DetailFishPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
+                  //ubah sesuai data
                   'FishDesc',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -139,12 +143,16 @@ class DetailFishPage extends StatelessWidget {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 Text(
+                  //ubah sesuai data
                   'creatorName',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 122, 122, 122)),
+                ),
+                SizedBox(
+                  height: 50,
                 ),
               ],
             ),

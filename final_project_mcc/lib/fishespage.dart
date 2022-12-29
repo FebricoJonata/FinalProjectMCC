@@ -1,5 +1,6 @@
 
 import 'package:final_project_mcc/detailfishpage.dart';
+import 'package:final_project_mcc/insertfishpage.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/material.dart';
 
@@ -74,7 +75,7 @@ class FishesPage extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               //ubah navigasi ke insert fish page !!! 
-              MaterialPageRoute(builder: (context) => TempPage()), 
+              MaterialPageRoute(builder: (context) => InsertFishPage(fishTypeId: fishTypeId,)), 
               (route) => false
             )
           }

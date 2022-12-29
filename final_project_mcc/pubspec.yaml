@@ -42,6 +42,7 @@ dependencies:
   easy_image_viewer: ^1.2.0
   fab_circular_menu: ^1.0.0
 
+
   
 
 dev_dependencies:
