@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
             children: [
       
               SizedBox(
-                height: 200,
+                height: 150,
               ),
       
               Container( // logo
