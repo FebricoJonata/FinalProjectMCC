@@ -13,55 +13,54 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Login'),
-      ),
-
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: Text('Login'),
+      // ),
 
       body: Container(
-        padding: EdgeInsets.all(12),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, 
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, 
         // crossAxisAlignment: CrossAxisAlignment.center, 
-        children: [
+          children: [
 
-          Container( // logo
-            height: 100,
-            // child: SvgPicture.asset('assets/logo/Logo HE FISH (2).svg'),
-            child: Image.asset('assets/Logo/Logo HE FISH.png'),
-          ),
+            Container( // logo
+              height: 100,
+              // child: SvgPicture.asset('assets/logo/Logo HE FISH (2).svg'),
+              child: Image.asset('assets/Logo/Logo HE FISH.png'),
+            ),
 
-          SizedBox( // spacing
-            height: 36,
-          ),
+            SizedBox( // spacing
+              height: 36,
+            ),
 
-          TextFormField( // username
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Input your Username",
-                labelText: "Username"),
-          ),
+            TextFormField( // username
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  hintText: "Input your Username",
+                  labelText: "Username"),
+            ),
 
-          SizedBox( // spacing
-            height: 24,
-          ),
+            SizedBox( // spacing
+              height: 24,
+            ),
 
-          TextFormField( // password
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
+            TextFormField( // password,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 hintText: "Input your password",
-                labelText: "Password"),
-                obscureText: true,
-          ),
+                labelText: "Password",
+                // suffixIcon: Icon(Icons.remove_red_eye_rounded)
+              ),
+              obscureText: true,
+            ),
 
-          SizedBox( // spacing
-            height: 44,
-          ),
+            SizedBox( // spacing
+              height: 44,
+            ),
 
-          Container( // login button
-            width: 100,
-            height: 40,
-            child: ElevatedButton(
+            ElevatedButton( // login button
               onPressed: () {
                 // masukin validasi
                 Navigator.push(context, RouterGenerator.generateRoute(
@@ -70,65 +69,71 @@ class LoginPage extends StatelessWidget {
                     )
                   )
                 );
-              },
+              }, 
               child: Text(
                 "Login",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-            ),
-          ),
-
-          SizedBox( // spacing
-            height: 24,
-          ),
-
-          Text('or'), // text 'or'
-
-          SizedBox( // spacing
-            height: 24,
-          ),
-
-          Container( // google button
-            width: 220,
-            height: 40,
-            child: ElevatedButton(
-                  onPressed: () {
-                    // generate token
-                    Navigator.push(context, RouterGenerator.generateRoute(
-                        RouteSettings(
-                          name: '/',
-                        )
-                      )
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image.asset('assets/Logo/logo Google.png'),
-                      Text(
-                        "Login with Google",
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)
-                      ),
-                    ],
-                  )
+              style: ElevatedButton.styleFrom(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32)
                 ),
-          ),
+                minimumSize: Size(100, 50)
+              ), 
+            ),
 
-          SizedBox( // spacing
-            height: 44,
-          ),
+            SizedBox( // spacing
+              height: 24,
+            ),
 
-          Row( // ke register
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Don't have an account?", style: TextStyle(fontSize: 16),),
-              SizedBox(
-                width: 16,
+            Text('or'), // text 'or'
+
+            SizedBox( // spacing
+              height: 24,
+            ),
+            
+            ElevatedButton( // login button
+              onPressed: () {
+                // masukin validasi
+                Navigator.push(context, RouterGenerator.generateRoute(
+                    RouteSettings(
+                      name: '/',
+                    )
+                  )
+                );
+              }, 
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset('assets/Logo/logo Google.png'),
+                  Text(
+                    "Login with Google",
+                    style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold)
+                  ),
+                ],
               ),
-              Container(
-                height: 40,
-                child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                alignment: Alignment.center,
+                primary: Colors.white,
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32)
+                ),
+                minimumSize: Size(100, 50),
+                maximumSize: Size(220, 70)
+              ), 
+            ),
+
+            SizedBox( // spacing
+              height: 44,
+            ),
+
+            Row( // ke register
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have an account?", style: TextStyle(fontSize: 16),),
+                TextButton(
                   onPressed: () {
                     Navigator.push(context, RouterGenerator.generateRoute(
                         RouteSettings(
@@ -141,12 +146,11 @@ class LoginPage extends StatelessWidget {
                     'Register Now',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                ),
-              )
-            ],
-          )
-
-        ]),
+                )
+              ],
+            )
+          ]
+        ),
       ),
     );
   }
