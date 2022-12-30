@@ -65,9 +65,10 @@ flutter:
     - assets/carousel/
     - assets/fishtype/
     - assets/freshwater/
+    - assets/Logo/
     # assets/saltwater/
     # assets/deepsea/
-    - assets/logo/
+    
 
   # To add assets to your application, add an assets section, like this:
   # assets:

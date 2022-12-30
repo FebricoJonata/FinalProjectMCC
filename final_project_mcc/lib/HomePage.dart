@@ -76,7 +76,8 @@ class _ImgCarouselState extends State<ImgCarousel> {
       'assets/carousel/ikan_guppy.jpeg',
       'assets/carousel/ikan_koi.jpeg',
       'assets/carousel/ikan_mas.jpeg',
-      'assets/carousel/ikan_siamese.jpeg'
+      'assets/carousel/ikan_siamese.jpeg',
+      // 'assets/Logo/Logo_Google.png'
     ];
 
     return Container(
