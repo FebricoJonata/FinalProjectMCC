@@ -1,11 +1,8 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project_mcc/fishespage.dart';
 import 'package:final_project_mcc/route.dart';
-import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 /*
 belum :
@@ -13,7 +10,6 @@ belum :
 [v] navigasi -> grid of button - FishTypeGridItem -> fishes page, pass argument fish type
 tinggal ubah route
 */
-
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,11 +35,9 @@ class HomePage extends StatelessWidget {
             ImgCarousel(),
             AboutCompany(),
             ListTile(
-              title: Text('Fish Types',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-                ),
+              title: Text(
+                'Fish Types',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
             FishTypeGrid(),
@@ -55,7 +49,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
 List<T> map<T>(List list, Function handler) {
   List<T> result = [];
   for (var i = 0; i < list.length; i++) {
@@ -64,7 +57,6 @@ List<T> map<T>(List list, Function handler) {
 
   return result;
 }
-
 
 class ImgCarousel extends StatefulWidget {
   const ImgCarousel({Key? key}) : super(key: key);
@@ -99,35 +91,31 @@ class _ImgCarouselState extends State<ImgCarousel> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
-                        image: AssetImage(src), 
-                        fit: BoxFit.cover
-                      )
-                  ),
+                          image: AssetImage(src), fit: BoxFit.cover)),
                 );
               });
             }).toList(),
             options: CarouselOptions(
-              autoPlayInterval: const Duration(seconds: 3),
-              enlargeCenterPage: true,
-              enlargeFactor: 0.3,
-              aspectRatio: 2,
-              viewportFraction: 0.8,
-              // height: MediaQuery.of(context).size.height/4.5,
-              height: 190,
-              autoPlay: true,
-              // clipBehavior: Clip.nones,
-              onPageChanged: (ind, _){
-                setState(() {
-                  _current = ind;
-                });
-              }
-            ),
+                autoPlayInterval: const Duration(seconds: 3),
+                enlargeCenterPage: true,
+                enlargeFactor: 0.3,
+                aspectRatio: 2,
+                viewportFraction: 0.8,
+                // height: MediaQuery.of(context).size.height/4.5,
+                height: 190,
+                autoPlay: true,
+                // clipBehavior: Clip.nones,
+                onPageChanged: (ind, _) {
+                  setState(() {
+                    _current = ind;
+                  });
+                }),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
               fishImg,
-                  (index, url) {
+              (index, url) {
                 return Container(
                   width: 8.0,
                   height: 8.0,
@@ -146,7 +134,6 @@ class _ImgCarouselState extends State<ImgCarousel> {
     );
   }
 }
-
 
 class AboutCompany extends StatelessWidget {
   const AboutCompany({Key? key}) : super(key: key);
@@ -170,14 +157,16 @@ class AboutCompany extends StatelessWidget {
       ),
       contentPadding: EdgeInsets.all(15),
       // minVerticalPadding: 10,
-      
     );
   }
 }
 
-
 class FishTypeGridItem extends StatelessWidget {
-  FishTypeGridItem({super.key, required this.fishType, required this.srcBackImg, required this.fishTypeId});
+  FishTypeGridItem(
+      {super.key,
+      required this.fishType,
+      required this.srcBackImg,
+      required this.fishTypeId});
 
   //tambah navigation --> class(?)
   final String srcBackImg;
@@ -209,21 +198,20 @@ class FishTypeGridItem extends StatelessWidget {
               fishType,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),  
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           GestureDetector(
             //navigation ke fish pagee !!!! with the fish type as its arguments.
             onTap: () => {
               Navigator.pushAndRemoveUntil(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => FishesPage(fishTypeId: fishTypeId),
-                ), 
-                (route) => false)
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FishesPage(fishTypeId: fishTypeId),
+                  ),
+                  (route) => false)
             },
           )
         ],
@@ -249,9 +237,21 @@ class _FishTypeGridState extends State<FishTypeGrid> {
       mainAxisSpacing: 30,
       padding: EdgeInsets.all(40),
       children: [
-        FishTypeGridItem(fishType: 'Freshwater', srcBackImg: 'assets/fishtype/freshwater.jpg', fishTypeId: 0,),
-        FishTypeGridItem(fishType: 'Saltwater', srcBackImg: 'assets/fishtype/saltwater.jpg', fishTypeId: 1,),
-        FishTypeGridItem(fishType: 'Deep Sea', srcBackImg: 'assets/fishtype/deepsea.jpg', fishTypeId: 2,),
+        FishTypeGridItem(
+          fishType: 'Freshwater',
+          srcBackImg: 'assets/fishtype/freshwater.jpg',
+          fishTypeId: 0,
+        ),
+        FishTypeGridItem(
+          fishType: 'Saltwater',
+          srcBackImg: 'assets/fishtype/saltwater.jpg',
+          fishTypeId: 1,
+        ),
+        FishTypeGridItem(
+          fishType: 'Deep Sea',
+          srcBackImg: 'assets/fishtype/deepsea.jpg',
+          fishTypeId: 2,
+        ),
         // FishTypeGridItem(fishType: 'Saltwater', srcBackImg: '../asset/saltwater.jpg')
       ],
       controller: ScrollController(),
@@ -259,56 +259,47 @@ class _FishTypeGridState extends State<FishTypeGrid> {
   }
 }
 
-
 class LogoutAlert extends StatelessWidget {
   const LogoutAlert({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Logout of your account?', textAlign: TextAlign.center,),
-      titleTextStyle: const TextStyle(
-        color: Colors.black,
-        fontSize: 25,
-        fontWeight: FontWeight.bold
+      title: Text(
+        'Logout of your account?',
+        textAlign: TextAlign.center,
       ),
+      titleTextStyle: const TextStyle(
+          color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
       titlePadding: EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 25),
       buttonPadding: EdgeInsets.zero,
       actions: [
         Container(
           decoration: const BoxDecoration(
-            border: Border.symmetric(horizontal: BorderSide(color: Color.fromARGB(136, 216, 216, 216), width: 2))
-          ),
+              border: Border.symmetric(
+                  horizontal: BorderSide(
+                      color: Color.fromARGB(136, 216, 216, 216), width: 2))),
           // width: double.infinity,
           child: CupertinoDialogAction(
             child: Text('Logout'),
-            textStyle: TextStyle(
-              color: Colors.red[600],
-              fontWeight: FontWeight.w600
-            ),
+            textStyle:
+                TextStyle(color: Colors.red[600], fontWeight: FontWeight.w600),
             onPressed: () => {
               Navigator.pushAndRemoveUntil(
-                context,
-                //navigasi ke exit page !!!! 
-                // ku ganti ke login page yaa
-                // MaterialPageRoute(builder: (context) => TempPage()), 
-                // (route) => false)
-                RouterGenerator.generateRoute(
-                  RouteSettings(
-                    name: '/login'
-                  )
-                ),
-                (route) => false)
+                  context,
+                  //navigasi ke exit page !!!!
+                  // ku ganti ke login page yaa
+                  // MaterialPageRoute(builder: (context) => TempPage()),
+                  // (route) => false)
+                  RouterGenerator.generateRoute(RouteSettings(name: '/login')),
+                  (route) => false)
             },
           ),
         ),
         CupertinoDialogAction(
           child: Text('Cancel'),
-          textStyle: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.w600
-          ),
-          onPressed: (){
+          textStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
+          onPressed: () {
             Navigator.pop(context);
           },
         )
@@ -316,12 +307,10 @@ class LogoutAlert extends StatelessWidget {
       elevation: 24,
       backgroundColor: Color.fromARGB(240, 255, 255, 255),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
     );
   }
 }
-
 
 class LogoutButtonAlert extends StatelessWidget {
   const LogoutButtonAlert({Key? key}) : super(key: key);
@@ -332,13 +321,12 @@ class LogoutButtonAlert extends StatelessWidget {
       padding: EdgeInsets.only(right: 20),
       child: GestureDetector(
         //jangan lupa navigation ke login pagee !!!
-        onTap: () => {
-          showDialog(
-            context: context, 
-            builder: (_) => LogoutAlert()
-          )
-        },
-        child: const Icon(Icons.logout_rounded, color: Colors.red,),
+        onTap: () =>
+            {showDialog(context: context, builder: (_) => LogoutAlert())},
+        child: const Icon(
+          Icons.logout_rounded,
+          color: Colors.red,
+        ),
       ),
     );
   }
@@ -379,8 +367,6 @@ class LogoutButtonAlert extends StatelessWidget {
 //     );
 //   }
 // }
-
-
 
 // class ImgCarousel extends StatefulWidget {
 //   const ImgCarousel({Key? key}) : super(key: key);

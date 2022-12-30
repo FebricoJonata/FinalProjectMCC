@@ -1,7 +1,6 @@
 
 import 'package:final_project_mcc/detailfishpage.dart';
 import 'package:final_project_mcc/insertfishpage.dart';
-import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/material.dart';
 
 import 'HomePage.dart';
