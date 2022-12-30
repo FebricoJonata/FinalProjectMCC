@@ -1,6 +1,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/route.dart';
 import 'package:final_project_mcc/temppage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -289,7 +290,14 @@ class LogoutAlert extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context,
                 //navigasi ke exit page !!!! 
-                MaterialPageRoute(builder: (context) => TempPage()), 
+                // ku ganti ke login page yaa
+                // MaterialPageRoute(builder: (context) => TempPage()), 
+                // (route) => false)
+                RouterGenerator.generateRoute(
+                  RouteSettings(
+                    name: '/login'
+                  )
+                ),
                 (route) => false)
             },
           ),
