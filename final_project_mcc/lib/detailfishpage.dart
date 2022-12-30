@@ -25,8 +25,8 @@ class DetailFishPage extends StatelessWidget {
   DetailFishPage({super.key, 
     required this.fishTypeId, 
     required this.imagesrc,
-    required this.fishName,
-    required this.fishPrice,
+    // required this.fishName,
+    // required this.fishPrice,
   });
 
   int fishTypeId; //jenis ikan
@@ -39,8 +39,8 @@ class DetailFishPage extends StatelessWidget {
 
   //hilangin '?'
   String? fishId = "F001"; //buat ambil data dari database
-  String fishName;
-  String fishPrice; //nanti ambilnya lewat database aja pakai fishId, daripada kebanyakan passing argument
+  String fishName = "Killi";
+  String fishPrice = "4000"; //nanti ambilnya lewat database aja pakai fishId, daripada kebanyakan passing argument
   String? fishDesc = "Freshwater fish";
   String? creatorName = "Siapa Ya?";
 
@@ -177,11 +177,11 @@ class DetailFishPage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) => EditFishPage(
                 fishId: fishId,
                 fishTypeId: fishTypeId, 
-                fishName: fishName, 
-                choosedFishType: 2, 
-                fishPrice: fishPrice, 
-                fishDesc: fishDesc, 
-                pickedGalleryImage: imagesrc
+                // fishName: fishName, 
+                // choosedFishType: 2, 
+                // fishPrice: fishPrice, 
+                // fishDesc: fishDesc, 
+                // pickedGalleryImage: imagesrc
                 )))
             }, 
             icon: Icon(Icons.edit, color: Colors.grey[700], size: 30,)

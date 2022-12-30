@@ -32,20 +32,20 @@ class EditFishPage extends StatefulWidget {
   const EditFishPage({super.key, 
     required this.fishId,
     required this.fishTypeId,
-    required this.fishName, 
-    required this.choosedFishType,
-    required this.fishPrice,
-    required this.fishDesc,
-    required this.pickedGalleryImage
+    // required this.fishName, 
+    // required this.choosedFishType,
+    // required this.fishPrice,
+    // required this.fishDesc,
+    // required this.pickedGalleryImage
   });
 
   final fishId;
   final fishTypeId;
-  final choosedFishType;
-  final fishName;
-  final fishPrice;
-  final fishDesc;
-  final pickedGalleryImage;
+  final choosedFishType = 1;
+  final fishName = "killi";
+  final fishPrice = "40000";
+  final fishDesc = "Killi Fish";
+  final pickedGalleryImage = 'assets/freshwater/killifish.jpg';
 
   @override
   State<EditFishPage> createState() => _EditFishPageState();
@@ -66,6 +66,7 @@ class _EditFishPageState extends State<EditFishPage> {
   String? newFishPrice;
   String? newFishDesc;
   File? newPickedGalleryImage;
+  // String? imageFileType;
 
   //sebenernya cukup fishId biar data lain diambil lg dari database
   get fishId => widget.fishId; //buat database
@@ -79,7 +80,10 @@ class _EditFishPageState extends State<EditFishPage> {
   @override
   void initState() {
     // TODO: implement initState
+    newFishName = fishName;
     newChoosedFishType = choosedFishType;
+    newFishPrice = fishPrice;
+    newFishDesc = fishDesc;
     super.initState();
   }
 

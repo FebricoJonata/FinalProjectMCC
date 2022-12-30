@@ -116,8 +116,8 @@ class FishArticleList extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => DetailFishPage(
                   fishTypeId: fishTypeId, 
                   imagesrc: fishArticleSrc[arcticleInd],
-                  fishName: fishName,
-                  fishPrice: fishPrice,
+                  // fishName: fishName,
+                  // fishPrice: fishPrice,
                 ))
               )
             },
