@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
                 height: 24,
               ),
               
-              ElevatedButton( // login button
+              ElevatedButton( // google login button
                 onPressed: () {
                   // masukin validasi
                   Navigator.push(context, RouterGenerator.generateRoute(
