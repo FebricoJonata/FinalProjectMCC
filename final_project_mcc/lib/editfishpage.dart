@@ -169,6 +169,7 @@ class _EditFishPageState extends State<EditFishPage> {
               child: Column(
                 children: [
                   TextFormField(
+                    maxLength: 50,
                     initialValue: fishName,
                     onChanged: (value) => setState(() {
                       newFishName = value;
@@ -216,7 +217,7 @@ class _EditFishPageState extends State<EditFishPage> {
                       newFishDesc = value;
                     }),
                     maxLines: 4,
-                    maxLength: 150,
+                    maxLength: 50,
                     textAlignVertical: TextAlignVertical.top,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(

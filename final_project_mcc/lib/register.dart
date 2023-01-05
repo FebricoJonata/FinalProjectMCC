@@ -1,6 +1,7 @@
 import 'package:final_project_mcc/route.dart';
 import 'package:final_project_mcc/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -30,6 +31,7 @@ class Register extends StatelessWidget {
                 height: 150,
               ),
               TextFormField(
+                maxLength: 25,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                     hintText: "Input your Username",
@@ -38,6 +40,7 @@ class Register extends StatelessWidget {
               ),
               SeparatorSizedBoxRegisterPage(),
               TextFormField(
+                maxLength: 50,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
@@ -47,6 +50,7 @@ class Register extends StatelessWidget {
               ),
               SeparatorSizedBoxRegisterPage(),
               TextFormField(
+                maxLength: 50,
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
