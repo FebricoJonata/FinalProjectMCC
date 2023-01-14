@@ -133,6 +133,7 @@ class _InsertFishPageState extends State<InsertFishPage> {
               child: Column(
                 children: [
                   TextFormField(
+                    maxLength: 50,
                     onChanged: (value) => setState(() {
                       fishName = value;
                     }),
@@ -179,7 +180,7 @@ class _InsertFishPageState extends State<InsertFishPage> {
                       fishDesc = value;
                     }),
                     maxLines: 4,
-                    maxLength: 150,
+                    maxLength: 50,
                     textAlignVertical: TextAlignVertical.top,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
