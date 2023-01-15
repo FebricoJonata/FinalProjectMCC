@@ -12,7 +12,7 @@ class RouterGenerator {
       case '/register':
         return MaterialPageRoute(builder: (_) => Register());
       case '/login':
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => Login());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

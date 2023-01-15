@@ -8,15 +8,21 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class Register extends StatelessWidget {
-  Register({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   late User user;
-  var passHidden;
+
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -28,86 +34,107 @@ class Register extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, 
-            children: [
-              SizedBox(
-                height: 150,
-              ),
-              TextFormField(
-                maxLength: 25,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    hintText: "Input your Username",
-                    labelText: "Username"),
-                controller: usernameController,
-              ),
-              SeparatorSizedBoxRegisterPage(),
-              TextFormField(
-                maxLength: 50,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    hintText: "Input your email",
-                    labelText: "Email"),
-                controller: emailController,
-              ),
-              SeparatorSizedBoxRegisterPage(),
-              TextFormField(
-                maxLength: 50,
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    hintText: "Input your password",
-                    labelText: "Password"),
-                controller: passwordController,
-              ),
-              SeparatorSizedBoxRegisterPage(),
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    hintText: "Input your password again",
-                    labelText: "Password Confirmation"),
-                controller: confirmPasswordController,
-              ),
-              
-              SizedBox( // spacing
-                height: 44,
-              ),
-      
-              ElevatedButton( // register button
-                onPressed: () async {
-                  // detail validasinya di paling bawah
-                  if(validasi(usernameController, emailController, passwordController,
-                  confirmPasswordController, context)){
-
-                    String url = "http://localhost:3000/users/test"; // ganti link localhost
-                    final response = await http.post(Uri.parse(url),
-                        headers: {"Content-Type": "application/json; charset=UTF-8"},
-                        body: jsonEncode(
-                            {"id": 1,
-                            "username": usernameController.text, 
-                            "email": emailController.text, 
-                            "password": passwordController.text,
-                            "token": "....."
-                            })
-                    );
-                    if (response.body.isNotEmpty) {
-                      Navigator.pushReplacement(context, RouterGenerator.generateRoute(
-                        RouteSettings(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SizedBox(
+              height: 150,
+            ),
+            TextFormField(
+              maxLength: 25,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  hintText: "Input your Username",
+                  labelText: "Username"),
+              controller: usernameController,
+            ),
+            SeparatorSizedBoxRegisterPage(),
+            TextFormField(
+              maxLength: 50,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  hintText: "Input your email",
+                  labelText: "Email"),
+              controller: emailController,
+            ),
+            SeparatorSizedBoxRegisterPage(),
+            TextFormField(
+              maxLength: 50,
+              obscureText: _isObscure,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  hintText: "Input your password",
+                  labelText: "Password"),
+              controller: passwordController,
+            ),
+            SeparatorSizedBoxRegisterPage(),
+            TextFormField(
+              obscureText: _isObscure,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  hintText: "Input your password again",
+                  labelText: "Password Confirmation"),
+              controller: confirmPasswordController,
+            ),
+            SizedBox(
+              // spacing
+              height: 44,
+            ),
+            ElevatedButton(
+              // register button
+              onPressed: () async {
+                // detail validasinya di paling bawah
+                if (validasi(usernameController, emailController,
+                    passwordController, confirmPasswordController, context)) {
+                  String url =
+                      "http://localhost:3000/users/test"; // ganti link localhost
+                  final response = await http.post(Uri.parse(url),
+                      headers: {
+                        "Content-Type": "application/json; charset=UTF-8"
+                      },
+                      body: jsonEncode({
+                        "id": 1,
+                        "username": usernameController.text,
+                        "email": emailController.text,
+                        "password": passwordController.text,
+                        "token": "....."
+                      }));
+                  if (response.body.isNotEmpty) {
+                    Navigator.pushReplacement(
+                        context,
+                        RouterGenerator.generateRoute(RouteSettings(
                           name: '/login',
-                        )
-                      ));
-                    } 
+                        )));
                   }
-                },
+                }
+              },
 
-                child: Text(
-                  "Register",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
+              child: Text(
+                "Register",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32)),
