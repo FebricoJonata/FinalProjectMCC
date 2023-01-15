@@ -88,12 +88,13 @@ class _InsertFishPageState extends State<InsertFishPage> {
         leading: BackButton(
           color: Colors.white,
           onPressed: () => {
-            Navigator.pop(context)
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => FishesPage(fishTypeId: fishTypeId)),
-            //     (route) => false)
+            // Navigator.pop(context)
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FishesPage(fishTypeId: fishTypeId))
+                    )
+                // (route) => false)
           },
         ),
       ),

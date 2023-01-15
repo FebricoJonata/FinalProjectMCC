@@ -1,3 +1,4 @@
+import 'package:final_project_mcc/models/fish.dart';
 import 'package:final_project_mcc/views/detailfishpage.dart';
 import 'package:final_project_mcc/views/insertfishpage.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +41,11 @@ class FishesPage extends StatelessWidget {
           leading: BackButton(
             color: Colors.white,
             onPressed: () => {
-              Navigator.pop(context)
-              // Navigator.pushAndRemoveUntil(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => const HomePage()),
-              //     (route) => false)
+              // Navigator.pop(context)
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false)
             },
           ),
           titleSpacing: 0,
@@ -102,92 +103,110 @@ class FishArticleList extends StatelessWidget {
 
   int fishTypeId;
 
-  List<String> fishArticleSrc = [
-    'assets/freshwater/bettablue.jpg',
-    'assets/freshwater/killifish.jpg'
+  // List<String> fishArticleSrc = [
+  //   'assets/freshwater/bettablue.jpg',
+  //   'assets/freshwater/killifish.jpg'
+  // ];
+
+  // String fishName = "Killi";
+  // String fishPrice = "4.000";
+
+  List<Fish> fishArticleSrc = [
+    Fish(id: 0, user_id: 12345, fish_type_id: 0, name: 'Killi', description: 'A fish', price: 20000, image_path: 'assets/freshwater/killifish.jpg'),
+    Fish(id: 0, user_id: 12345, fish_type_id: 0, name: 'Betta', description: 'A Blue fish', price: 40000, image_path: 'assets/freshwater/bettablue.jpg')
   ];
 
-  String fishName = "Killi";
-  String fishPrice = "4.000";
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: ListView.separated(
-          itemBuilder: (context, arcticleInd) {
-            return GestureDetector(
-              onTap: () => {
-                Navigator.push(
-                    context,
-                    //ubah navigasi ke Detail Fish Page with fish as its arguments !!!
-                    MaterialPageRoute(
-                        builder: (context) => DetailFishPage(
-                              fishTypeId: fishTypeId,
-                              imagesrc: fishArticleSrc[arcticleInd],
-                              // fishName: fishName,
-                              // fishPrice: fishPrice,
-                            )))
-              },
-              child: Card(
-                margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: 150,
-                          padding: EdgeInsets.zero,
-                          alignment: Alignment.center,
-                          child: Image(
-                            image: AssetImage(fishArticleSrc[arcticleInd]),
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
+
+    var fishByTypeId = fishArticleSrc.where((fish)=>fish.fish_type_id == fishTypeId);
+
+    if(fishByTypeId.isEmpty){
+      return Center(
+        child: Container(
+          child: Text("Fish not Available :)"),
+        ),
+      );
+    }else{
+      return Container(
+        padding: EdgeInsets.all(10),
+        child: ListView.separated(
+            itemBuilder: (context, arcticleInd) {
+                return GestureDetector(
+                  onTap: () => {
+                    Navigator.push(
+                        context,
+                        //ubah navigasi ke Detail Fish Page with fish as its arguments !!!
+                        MaterialPageRoute(
+                            builder: (context) => DetailFishPage(
+                                  selectedFish: fishArticleSrc[arcticleInd],
+                                  fishTypeId: fishTypeId,
+                                  // imagesrc: fishArticleSrc[arcticleInd].image_path,
+                                  // fishName: fishName,
+                                  // fishPrice: fishPrice,
+                                )))
+                  },
+                  child: Card(
+                    margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 150,
+                              padding: EdgeInsets.zero,
+                              alignment: Alignment.center,
+                              child: Image(
+                                image: AssetImage(fishArticleSrc[arcticleInd].image_path),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              //ubah sesuai nama ikan
+                              '${fishArticleSrc[arcticleInd].name}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              //ubah sesuai harga ikan
+                              'Rp.${fishArticleSrc[arcticleInd].price}',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 92, 92, 92)),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          //ubah sesuai nama ikan
-                          '${fishName}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          //ubah sesuai harga ikan
-                          'Rp.${fishPrice}',
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                              color: Color.fromARGB(255, 92, 92, 92)),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (context, i) {
-            return SizedBox(
-              height: 15,
-            );
-          },
-          itemCount: fishArticleSrc.length),
-    );
+                );   
+            },
+            separatorBuilder: (context, i) {
+              return SizedBox(
+                height: 15,
+              );
+            },
+            itemCount: fishArticleSrc.length),
+      );
+    }
   }
 }

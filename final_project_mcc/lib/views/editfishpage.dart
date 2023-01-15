@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:final_project_mcc/models/fish.dart';
 import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,23 +30,29 @@ cara akalin (?) simpen tipe image di database -- upload dari web, hp, asset
 
 
 class EditFishPage extends StatefulWidget {
-  const EditFishPage({super.key, 
-    required this.fishId,
-    required this.fishTypeId,
-    // required this.fishName, 
-    // required this.choosedFishType,
-    // required this.fishPrice,
-    // required this.fishDesc,
-    // required this.pickedGalleryImage
-  });
+  // const EditFishPage({super.key, 
+  //   required this.fish,
+  //   required this.fishTypeId,
+  //   // required this.fishName, 
+  //   // required this.choosedFishType,
+  //   // required this.fishPrice,
+  //   // required this.fishDesc,
+  //   // required this.pickedGalleryImage
+  // });
 
-  final fishId;
-  final fishTypeId;
-  final choosedFishType = 1;
-  final fishName = "killi";
-  final fishPrice = "40000";
-  final fishDesc = "Killi Fish";
-  final pickedGalleryImage = 'assets/freshwater/killifish.jpg';
+  const EditFishPage(
+      {Key? key, required this.fish, required this.fishTypeId}) 
+      : super(key: key);
+
+  final Fish fish;
+
+  // final fishId;
+  final int fishTypeId;
+  // final int choosedFishType;
+  // final fishName = "killi";
+  // final fishPrice = "40000";
+  // final fishDesc = "Killi Fish";
+  // final pickedGalleryImage = 'assets/freshwater/killifish.jpg';
 
   @override
   State<EditFishPage> createState() => _EditFishPageState();
@@ -62,28 +69,29 @@ class _EditFishPageState extends State<EditFishPage> {
   // String defaultImage = 'assets/fishtype/icon_ikan.png';
 
   String? newFishName;
-  int? newChoosedFishType = 0;
-  String? newFishPrice;
+  int? newChoosedFishType;
+  int? newFishPrice;
   String? newFishDesc;
   File? newPickedGalleryImage;
   // String? imageFileType;
 
   //sebenernya cukup fishId biar data lain diambil lg dari database
-  get fishId => widget.fishId; //buat database
+  // get fishId => widget.fishId; //buat database
   get fishTypeId => widget.fishTypeId;
-  get fishName => widget.fishName;
-  get choosedFishType => widget.choosedFishType;
-  get fishPrice => widget.fishPrice;
-  get fishDesc => widget.fishDesc;
-  get pickedGalleryImage => widget.pickedGalleryImage;
+  // get fishName => widget.fishName;
+  // get choosedFishType => widget.choosedFishType;
+  // get fishPrice => widget.fishPrice;
+  // get fishDesc => widget.fishDesc;
+  // get pickedGalleryImage => widget.pickedGalleryImage;
+  get fish => widget.fish;
 
   @override
   void initState() {
     // TODO: implement initState
-    newFishName = fishName;
-    newChoosedFishType = choosedFishType;
-    newFishPrice = fishPrice;
-    newFishDesc = fishDesc;
+    newFishName = fish.name;
+    newChoosedFishType = fish.fish_type_id;
+    newFishPrice = fish.price;
+    newFishDesc = fish.description;
     super.initState();
   }
 
@@ -141,7 +149,7 @@ class _EditFishPageState extends State<EditFishPage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.grey,
                     image: newPickedGalleryImage == null?
-                      DecorationImage(image: AssetImage(pickedGalleryImage), fit: BoxFit.cover)
+                      DecorationImage(image: AssetImage(fish.image_path), fit: BoxFit.cover)
                       : kIsWeb? DecorationImage(image: NetworkImage(newPickedGalleryImage!.path), fit: BoxFit.cover)
                       : DecorationImage(image: FileImage(newPickedGalleryImage!), fit: BoxFit.cover)
                       // : DecorationImage(image: AssetImage(newPickedGalleryImage!.path), fit: BoxFit.cover) -- gabisa
@@ -171,7 +179,7 @@ class _EditFishPageState extends State<EditFishPage> {
                 children: [
                   TextFormField(
                     maxLength: 50,
-                    initialValue: fishName,
+                    initialValue: fish.name,
                     onChanged: (value) => setState(() {
                       newFishName = value;
                     }),
@@ -200,10 +208,10 @@ class _EditFishPageState extends State<EditFishPage> {
                   ),
                   SizedBox(height: 20,),
                   TextFormField(
-                    initialValue: fishPrice,
+                    initialValue: fish.price.toString(),
                     keyboardType: TextInputType.number,
                     onChanged: (value) => setState(() {
-                      newFishPrice = value;
+                      newFishPrice = int.parse(value);
                     }),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
@@ -213,7 +221,7 @@ class _EditFishPageState extends State<EditFishPage> {
                   ),
                   SizedBox(height: 20,),
                   TextFormField(
-                    initialValue: fishDesc,
+                    initialValue: fish.description,
                     onChanged: (value) => setState(() {
                       newFishDesc = value;
                     }),

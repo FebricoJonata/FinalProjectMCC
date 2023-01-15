@@ -1,6 +1,7 @@
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:final_project_mcc/models/fish.dart';
 import 'package:final_project_mcc/views/editfishpage.dart';
 import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +22,18 @@ DetailFishPage
 */
 
 class DetailFishPage extends StatelessWidget {
-  DetailFishPage({super.key, 
-    required this.fishTypeId, 
-    required this.imagesrc,
+  DetailFishPage({super.key,
+    required this.selectedFish, 
+    required this.fishTypeId 
+    // required this.imagesrc,
     // required this.fishName,
     // required this.fishPrice,
   });
 
+  late Fish? selectedFish;
+
   int fishTypeId; //jenis ikan
-  String imagesrc;
+  // String imagesrc;
   List <String> detailBackImgsrc = [
     'assets/fishtype/freshwater.jpg',
     'assets/fishtype/saltwater.jpg',
@@ -37,11 +41,11 @@ class DetailFishPage extends StatelessWidget {
   ];
 
   //hilangin '?'
-  String? fishId = "F001"; //buat ambil data dari database
-  String fishName = "Killi";
-  String fishPrice = "4000"; //nanti ambilnya lewat database aja pakai fishId, daripada kebanyakan passing argument
-  String? fishDesc = "Freshwater fish";
-  String? creatorName = "Siapa Ya?";
+  // String? fishId = "F001"; //buat ambil data dari database
+  // String fishName = "Killi";
+  // String fishPrice = "4000"; //nanti ambilnya lewat database aja pakai fishId, daripada kebanyakan passing argument
+  // String? fishDesc = "Freshwater fish";
+  // String? creatorName = "Siapa Ya?";
 
   @override
   Widget build(BuildContext context) {
@@ -103,26 +107,26 @@ class DetailFishPage extends StatelessWidget {
                     // child: Image(image: AssetImage(imagesrc), fit: BoxFit.cover,),
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(imagesrc),
+                          image: AssetImage(selectedFish!.image_path),
                           fit: BoxFit.cover,
                         ),
                         borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onTap: () => {showImageViewer(context, AssetImage(imagesrc))},
+                  onTap: () => {showImageViewer(context, AssetImage(selectedFish!.image_path))},
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
                   //ubah sesuai data
-                  '${fishName}',
+                  '${selectedFish!.name}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
                 ),
                 Text(
                   //ubah sesuai data
-                  'Rp.${fishPrice},-',
+                  'Rp.${selectedFish!.price},-',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 23,
@@ -139,7 +143,7 @@ class DetailFishPage extends StatelessWidget {
                 ),
                 Text(
                   //ubah sesuai data
-                  '${fishDesc}',
+                  '${selectedFish!.description}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
@@ -153,7 +157,7 @@ class DetailFishPage extends StatelessWidget {
                 ),
                 Text(
                   //ubah sesuai data
-                  '${creatorName}',
+                  '${selectedFish!.user_id}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
@@ -175,7 +179,8 @@ class DetailFishPage extends StatelessWidget {
             onPressed: () => {
               //navigasi ke edit page
               Navigator.push(context, MaterialPageRoute(builder: (context) => EditFishPage(
-                fishId: fishId,
+                // fishId: selectedFish!.id,
+                fish: selectedFish!,
                 fishTypeId: fishTypeId, 
                 // fishName: fishName, 
                 // choosedFishType: 2, 
