@@ -24,24 +24,24 @@ class _RegisterState extends State<Register> {
   final confirmPasswordController = TextEditingController();
   late User user;
   late Future <bool> futureUser;
-  String url = "192.168.68.179:3000/users/register";
+  // String url = "http://localhost:3000/users/register";
 
   bool _isObscure = true;
 
-  Future<bool> registerUser(
-      String email, String username, String password) async {
+  // Future<bool> registerUser(
+  //     String email, String username, String password) async {
     
-    var resp = await http.post(Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(
-            {'email': email, 'username': username, 'password': password}));
+  //   var resp = await http.post(Uri.parse(url),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode(
+  //           {'email': email, 'username': username, 'password': password}));
 
-    if (resp.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //   if (resp.statusCode == 200) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,27 +130,27 @@ class _RegisterState extends State<Register> {
                         futureUser = registerUser(emailController.text, usernameController.text, passwordController.text);
                         print(futureUser);
                       });
-                  // String url =
-                  //     "http://localhost:3000/users/test"; // ganti link localhost
-                  // final response = await http.post(Uri.parse(url),
-                  //     headers: {
-                  //       "Content-Type": "application/json; charset=UTF-8",
-                  //       "Accept": "application/json"
-                  //     },
-                  //     body: jsonEncode({
-                  //       "id": 1,
-                  //       "username": usernameController.text,
-                  //       "email": emailController.text,
-                  //       "password": passwordController.text,
-                  //       "token": "....."
-                  //     }));
-                  // if (response.body.isNotEmpty) {
+                  String url =
+                      "http://localhost:3000/users/test"; // ganti link localhost
+                  final response = await http.post(Uri.parse(url),
+                      headers: {
+                        "Content-Type": "application/json; charset=UTF-8",
+                        "Accept": "application/json"
+                      },
+                      body: jsonEncode({
+                        "id": 1,
+                        "username": usernameController.text,
+                        "email": emailController.text,
+                        "password": passwordController.text,
+                        "token": "....."
+                      }));
+                  if (response.body.isNotEmpty) {
                     Navigator.pushReplacement(
                         context,
                         RouterGenerator.generateRoute(RouteSettings(
                           name: '/login',
                         )));
-                  // }
+                  }
                 }
               },
 
