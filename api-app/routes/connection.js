@@ -4,13 +4,8 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "mcclab",
+  database: "hefish",
 });
-
-// connection.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-// });
 
 connection.connect();
 
