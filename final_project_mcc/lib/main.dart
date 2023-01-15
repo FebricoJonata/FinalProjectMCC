@@ -1,8 +1,8 @@
-import 'package:final_project_mcc/views/register.dart';
+// import 'package:final_project_mcc/views/register.dart';
 import 'package:final_project_mcc/route.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'views/homepage.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'views/homepage.dart';
 
 void main() {
   runApp(const MyApp());
