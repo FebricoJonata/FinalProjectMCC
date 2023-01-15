@@ -82,9 +82,13 @@ class Register extends StatelessWidget {
                   if(validasi(usernameController, emailController, passwordController,
                   confirmPasswordController, context)){
 
-                    String url = "http://localhost:3000/users/test"; // ganti link localhost
+                    String url = "http://10.0.2.2:3000/users/register"; // ganti link localhost
                     final response = await http.post(Uri.parse(url),
-                        headers: {"Content-Type": "application/json; charset=UTF-8"},
+                        headers: {
+                          "Content-Type": "application/json; charset=UTF-8",
+                          "Accept": "application/json",
+                          "Access-Control-Allow-Origin": "*"
+                        }, 
                         body: jsonEncode(
                             {"id": 1,
                             "username": usernameController.text, 
@@ -93,6 +97,7 @@ class Register extends StatelessWidget {
                             "token": "....."
                             })
                     );
+                    print(response.body);
                     if (response.body.isNotEmpty) {
                       Navigator.pushReplacement(context, RouterGenerator.generateRoute(
                         RouteSettings(
