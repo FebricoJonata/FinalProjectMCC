@@ -9,6 +9,7 @@ router.get("/read", function (req, res, next) {
 
   db.query(sql, function (err, result) {
     if (err) throw err;
+    res.send(result)
     console.log(result);
   });
 });
