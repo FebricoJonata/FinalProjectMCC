@@ -8,15 +8,21 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class Register extends StatelessWidget {
-  Register({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   late User user;
-  var passHidden;
+
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +88,12 @@ class Register extends StatelessWidget {
                   if(validasi(usernameController, emailController, passwordController,
                   confirmPasswordController, context)){
 
-                    String url = "http://10.0.2.2:3000/users/register"; // ganti link localhost
+                    String url = "http://localhost:3000/users/test"; // ganti link localhost
                     final response = await http.post(Uri.parse(url),
                         headers: {
-                          "Content-Type": "application/json; charset=UTF-8",
-                          "Accept": "application/json",
-                          "Access-Control-Allow-Origin": "*"
-                        }, 
+                          "Content-Type": "application/json; charset=UTF-8", 
+                          "Accept": "application/json"
+                        },
                         body: jsonEncode(
                             {"id": 1,
                             "username": usernameController.text, 
@@ -97,22 +102,20 @@ class Register extends StatelessWidget {
                             "token": "....."
                             })
                     );
-                    print(response.body);
                     if (response.body.isNotEmpty) {
                       Navigator.pushReplacement(context, RouterGenerator.generateRoute(
                         RouteSettings(
                           name: '/login',
-                        )
-                      ));
-                    } 
+                        )));
                   }
-                },
+                }
+              },
 
-                child: Text(
-                  "Register",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
+              child: Text(
+                "Register",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32)),
