@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
   final confirmPasswordController = TextEditingController();
   late User user;
   late Future <bool> futureUser;
-  String url = "localhost:3000/users/register";
+  String url = "192.168.68.179:3000/users/register";
 
   bool _isObscure = true;
 
