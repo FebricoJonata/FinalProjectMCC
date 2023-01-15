@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:final_project_mcc/route.dart';
 import 'package:final_project_mcc/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -73,24 +76,32 @@ class Register extends StatelessWidget {
               ),
       
               ElevatedButton( // register button
-                onPressed: () {
+                onPressed: () async {
                   // detail validasinya di paling bawah
                   if(validasi(usernameController, emailController, passwordController,
                   confirmPasswordController, context)){
-                    user = User(usernameController.text, emailController.text, passwordController.text);
-                    //buat cek kalo kesimpen di variabelnya
-                    // print(user.username + " " + user.email + " " + user.password);
 
-                    // variabelnya daftarin ke database pake api & sql :)  
-
-                    Navigator.push(context, RouterGenerator.generateRoute(
-                      RouteSettings(
-                        name: '/login',
-                      )
-                    ));
+                    String url = "http://localhost:3000/users/test"; // ganti link localhost
+                    final response = await http.post(Uri.parse(url),
+                        headers: {"Content-Type": "application/json; charset=UTF-8"},
+                        body: jsonEncode(
+                            {"id": 1,
+                            "username": usernameController.text, 
+                            "email": emailController.text, 
+                            "password": passwordController.text,
+                            "token": "....."
+                            })
+                    );
+                    if (response.body.isNotEmpty) {
+                      Navigator.pushReplacement(context, RouterGenerator.generateRoute(
+                        RouteSettings(
+                          name: '/login',
+                        )
+                      ));
+                    } 
                   }
+                },
 
-                }, 
                 child: Text(
                   "Register",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
