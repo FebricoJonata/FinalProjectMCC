@@ -40,10 +40,11 @@ class FishesPage extends StatelessWidget {
           leading: BackButton(
             color: Colors.white,
             onPressed: () => {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                  (route) => false)
+              Navigator.pop(context)
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => const HomePage()),
+              //     (route) => false)
             },
           ),
           titleSpacing: 0,
