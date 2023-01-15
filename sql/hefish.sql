@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jan 2023 pada 10.13
+-- Waktu pembuatan: 15 Jan 2023 pada 15.44
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.11
 
@@ -30,11 +30,45 @@ SET time_zone = "+00:00";
 CREATE TABLE `fishes` (
   `id` int(10) NOT NULL,
   `user_id` int(10) DEFAULT NULL,
-  `fish_types_id` int(10) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
   `price` int(20) DEFAULT NULL,
-  `image_path` varchar(100) DEFAULT NULL
+  `image_path` varchar(100) DEFAULT NULL,
+  `fish_types_id` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `fish_types`
+--
+
+CREATE TABLE `fish_types` (
+  `fish_types_id` int(10) NOT NULL,
+  `name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `fish_types`
+--
+
+INSERT INTO `fish_types` (`fish_types_id`, `name`) VALUES
+(0, 'freshwater'),
+(1, 'saltwater'),
+(2, 'deep sea');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `username` varchar(25) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `token` char(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -46,8 +80,20 @@ CREATE TABLE `fishes` (
 --
 ALTER TABLE `fishes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `fish_types_id` (`fish_types_id`);
+  ADD KEY `FK_user_id` (`user_id`),
+  ADD KEY `FK_fish_types_id` (`fish_types_id`);
+
+--
+-- Indeks untuk tabel `fish_types`
+--
+ALTER TABLE `fish_types`
+  ADD PRIMARY KEY (`fish_types_id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -57,8 +103,8 @@ ALTER TABLE `fishes`
 -- Ketidakleluasaan untuk tabel `fishes`
 --
 ALTER TABLE `fishes`
-  ADD CONSTRAINT `fishes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `fishes_ibfk_2` FOREIGN KEY (`fish_types_id`) REFERENCES `fish_types` (`id`);
+  ADD CONSTRAINT `FK_fish_types_id` FOREIGN KEY (`fish_types_id`) REFERENCES `fish_types` (`fish_types_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
