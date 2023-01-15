@@ -179,7 +179,8 @@ class DetailFishPage extends StatelessWidget {
             onPressed: () => {
               //navigasi ke edit page
               Navigator.push(context, MaterialPageRoute(builder: (context) => EditFishPage(
-                fishId: selectedFish!.id,
+                // fishId: selectedFish!.id,
+                fish: selectedFish!,
                 fishTypeId: fishTypeId, 
                 // fishName: fishName, 
                 // choosedFishType: 2, 
