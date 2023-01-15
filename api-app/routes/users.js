@@ -12,7 +12,7 @@ router.get("/read", function (req, res, next) {
   });
 });
 
-router.post("/test", function (req, res, next) {
+router.post("/login", function (req, res, next) {
   const data = req.body;
   const query = `INSERT INTO users (username, password) VALUES ('${data.username}', '${data.password})`;
   console.log(req.body.username);
