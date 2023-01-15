@@ -14,7 +14,7 @@ var db = require("./connection.js");
 
 router.post("/test", function (req, res, next) {
   const data = req.body;
-  const query = `INSERT INTO users (username, password) VALUES ('${data.username}', '${data.password})`;
+  const query = `insert into users (username, password) VALUES ('${data.username}', '${data.password}')`;
   console.log(req.body.username);
   db.query(query, (err, result) => {
     if (err) throw err;
