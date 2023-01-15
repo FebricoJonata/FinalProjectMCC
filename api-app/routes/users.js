@@ -12,9 +12,9 @@ router.get("/read", function (req, res, next) {
   });
 });
 
-router.post("/test", function (req, res, next) {
+router.post("/login", function (req, res, next) {
   const data = req.body;
-  const query = `insert into users (id, username, email, password, token) VALUES ('${data.id}', '${data.username}', '${data.email}', '${data.password}', '${data.token}')`;
+  const query = `insert into users (username, password) VALUES ('${data.username}', '${data.password}')`;
   console.log(req.body.username);
   db.query(query, (err, result) => {
     if (err) throw err;
