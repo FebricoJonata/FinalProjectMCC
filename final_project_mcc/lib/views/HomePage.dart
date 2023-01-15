@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:final_project_mcc/route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

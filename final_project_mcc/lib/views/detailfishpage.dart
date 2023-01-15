@@ -1,8 +1,8 @@
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'package:final_project_mcc/editfishpage.dart';
-import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/views/editfishpage.dart';
+import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:flutter/material.dart';
 
 import 'HomePage.dart';

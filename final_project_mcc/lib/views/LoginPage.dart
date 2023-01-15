@@ -1,4 +1,4 @@
-import 'package:final_project_mcc/HomePage.dart';
+import 'package:final_project_mcc/views/HomePage.dart';
 import 'package:final_project_mcc/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';

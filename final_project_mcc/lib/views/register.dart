@@ -1,5 +1,5 @@
 import 'package:final_project_mcc/route.dart';
-import 'package:final_project_mcc/user.dart';
+import 'package:final_project_mcc/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';

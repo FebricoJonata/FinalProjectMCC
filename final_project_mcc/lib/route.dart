@@ -1,6 +1,6 @@
-import 'package:final_project_mcc/HomePage.dart';
-import 'package:final_project_mcc/LoginPage.dart';
-import 'package:final_project_mcc/register.dart';
+import 'package:final_project_mcc/views/HomePage.dart';
+import 'package:final_project_mcc/views/LoginPage.dart';
+import 'package:final_project_mcc/views/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

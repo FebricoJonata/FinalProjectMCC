@@ -1,7 +1,6 @@
-
 import 'dart:io';
 
-import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'HomePage.dart';
-
 
 /*
 save button - onpressed
@@ -20,20 +18,28 @@ save button - onpressed
 class InsertFishPage extends StatefulWidget {
   const InsertFishPage({super.key, required this.fishTypeId});
   final int fishTypeId;
-  
+
   @override
   State<InsertFishPage> createState() => _InsertFishPageState();
 }
 
 class _InsertFishPageState extends State<InsertFishPage> {
-  
   List<DropdownMenuItem<int>> fishTypeOption = [
     // DropdownMenuItem(child: Text("  --"), value: -1,),
-    DropdownMenuItem(child: Text("Freshwater"), value: 0,),
-    DropdownMenuItem(child: Text("Saltwater"), value: 1,),
-    DropdownMenuItem(child: Text("Deep Sea"), value: 2,)
+    DropdownMenuItem(
+      child: Text("Freshwater"),
+      value: 0,
+    ),
+    DropdownMenuItem(
+      child: Text("Saltwater"),
+      value: 1,
+    ),
+    DropdownMenuItem(
+      child: Text("Deep Sea"),
+      value: 2,
+    )
   ];
-  
+
   String defaultImage = 'assets/fishtype/icon_ikan.png';
 
   String? fishName;
@@ -41,24 +47,24 @@ class _InsertFishPageState extends State<InsertFishPage> {
   String? fishPrice;
   File? pickedGalleryImage;
   String? fishDesc;
-  
+
   get fishTypeId => widget.fishTypeId;
 
   Future PickGalleryImage() async {
-      XFile? galleryImage;    
-      try {
-        galleryImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if(galleryImage == null){
-          return;
-        }else{
-          setState(() {
-            pickedGalleryImage = File(galleryImage!.path);
-            // finalImage = pickedGalleryImage!.path;
-          });
-        }
-      } on PlatformException{
-        print('Unable to pick image');
+    XFile? galleryImage;
+    try {
+      galleryImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (galleryImage == null) {
+        return;
+      } else {
+        setState(() {
+          pickedGalleryImage = File(galleryImage!.path);
+          // finalImage = pickedGalleryImage!.path;
+        });
       }
+    } on PlatformException {
+      print('Unable to pick image');
+    }
   }
 
   // void dropDownCallBack(int? selectedValue){
@@ -71,7 +77,6 @@ class _InsertFishPageState extends State<InsertFishPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("New Fish"),
@@ -102,30 +107,36 @@ class _InsertFishPageState extends State<InsertFishPage> {
                   height: 250,
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey,
-                    image: pickedGalleryImage == null?
-                      DecorationImage(image: AssetImage(defaultImage), scale: 0.3)
-                      : kIsWeb? DecorationImage(image: NetworkImage(pickedGalleryImage!.path), fit: BoxFit.cover)
-                      : DecorationImage(image: FileImage(pickedGalleryImage!), fit: BoxFit.cover)
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey,
+                      image: pickedGalleryImage == null
+                          ? DecorationImage(
+                              image: AssetImage(defaultImage), scale: 0.3)
+                          : kIsWeb
+                              ? DecorationImage(
+                                  image: NetworkImage(pickedGalleryImage!.path),
+                                  fit: BoxFit.cover)
+                              : DecorationImage(
+                                  image: FileImage(pickedGalleryImage!),
+                                  fit: BoxFit.cover)
                       //kalo pake chrome filenya bentuk URL, kalo dari hp gambarnya bentuk file
                       //kIsWeb buat ngecek app nya dijalanin lewat web atau ga
-                  ),
+                      ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                    shape: BoxShape.circle
-                  ),
-                  child: IconButton(
-                    onPressed: () async{
-                      PickGalleryImage();
-                    }, 
-                    icon: const Icon(Icons.collections_rounded, color: Colors.white,),
-                  )
-                ),
+                    margin: EdgeInsets.all(30),
+                    padding: EdgeInsets.all(6),
+                    decoration: const BoxDecoration(
+                        color: Colors.blue, shape: BoxShape.circle),
+                    child: IconButton(
+                      onPressed: () async {
+                        PickGalleryImage();
+                      },
+                      icon: const Icon(
+                        Icons.collections_rounded,
+                        color: Colors.white,
+                      ),
+                    )),
               ],
             ),
             Container(
@@ -138,18 +149,20 @@ class _InsertFishPageState extends State<InsertFishPage> {
                       fishName = value;
                     }),
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      hintText: "Input Fish Name Here",
-                      labelText: "Fish Name"
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "Input Fish Name Here",
+                        labelText: "Fish Name"),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   DropdownButtonFormField(
-                    items: fishTypeOption, 
+                    items: fishTypeOption,
                     value: choosedFishType,
-                    onChanged: (int? selectedValue){
+                    onChanged: (int? selectedValue) {
                       setState(() {
-                        if(selectedValue is int){
+                        if (selectedValue is int) {
                           choosedFishType = selectedValue;
                         }
                       });
@@ -157,24 +170,28 @@ class _InsertFishPageState extends State<InsertFishPage> {
                     icon: Icon(Icons.expand_more_rounded),
                     // hint: Text("Choose Fish Type Here"),
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      labelText: "Fish Type",
-                      hintText: "Choose Fish Type Here"
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        labelText: "Fish Type",
+                        hintText: "Choose Fish Type Here"),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     keyboardType: TextInputType.number,
                     onChanged: (value) => setState(() {
                       fishPrice = value;
                     }),
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      hintText: "Rp.0,-",
-                      labelText: "Fish Price"
-                    ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        hintText: "Rp.0,-",
+                        labelText: "Fish Price"),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   TextFormField(
                     onChanged: (value) => setState(() {
                       fishDesc = value;
@@ -184,12 +201,15 @@ class _InsertFishPageState extends State<InsertFishPage> {
                     textAlignVertical: TextAlignVertical.top,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
                       hintText: "Input Description Here",
                       labelText: "Description",
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       // print(fishName);
@@ -197,28 +217,26 @@ class _InsertFishPageState extends State<InsertFishPage> {
                       // print(fishPrice);
                       // print(fishDesc);
                       //validasi keisi semua, simpen ke database
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage())
-                      );
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                       showDialog(
-                        context: context, 
-                        builder: (_) => CreateArticleAlertDialog()
-                      );
-                    }, 
-                    child: Text("Save",
+                          context: context,
+                          builder: (_) => CreateArticleAlertDialog());
+                    },
+                    child: Text(
+                      "Save",
                       style: TextStyle(fontSize: 20),
                     ),
                     style: ElevatedButton.styleFrom(
-                      alignment: Alignment.center,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)
-                      ),
-                      minimumSize: Size(100, 50)
-                    ),
+                        alignment: Alignment.center,
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32)),
+                        minimumSize: Size(100, 50)),
                   ),
-                  SizedBox(height: 50,),
+                  SizedBox(
+                    height: 50,
+                  ),
                 ],
               ),
             )
@@ -229,26 +247,24 @@ class _InsertFishPageState extends State<InsertFishPage> {
   }
 }
 
-
 class CreateArticleAlertDialog extends StatelessWidget {
   const CreateArticleAlertDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("New fish article created succesfully ^^", textAlign: TextAlign.center,),
+      title: Text(
+        "New fish article created succesfully ^^",
+        textAlign: TextAlign.center,
+      ),
       titleTextStyle: const TextStyle(
-        color: Colors.black,
-        fontSize: 20,
-        fontWeight: FontWeight.w500
+          color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+      content: Text(
+        "Tap anywhere outside this box to continue",
+        textAlign: TextAlign.center,
       ),
-      content: Text("Tap anywhere outside this box to continue", textAlign: TextAlign.center,),
-      contentTextStyle: const TextStyle(
-        color: Colors.grey
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
-      ),
+      contentTextStyle: const TextStyle(color: Colors.grey),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       // alignment: Alignment.center,
     );
   }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:final_project_mcc/fishespage.dart';
+import 'package:final_project_mcc/views/fishespage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
