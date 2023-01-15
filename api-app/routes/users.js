@@ -10,13 +10,14 @@ router.get("/read", function (req, res, next) {
   db.query(sql, function (err, result) {
     if (err) throw err;
     console.log(result);
+    res.send(result);
   });
 });
 
 router.post("/login", function (req, res, next) {
   const data = req.body;
-  const query = `insert into users (username, password) VALUES ('${data.username}', '${data.password}')`;
-  console.log(req.body.username);
+  const query = `select * from users where email = "${data.email}"`;
+  console.log(req.body.email);
   db.query(query, (err, result) => {
     if (err) throw err;
     res.send(result);
@@ -25,7 +26,7 @@ router.post("/login", function (req, res, next) {
 
 router.post("/register", function (req, res, next) {
   const data = req.body;
-  const query = `insert into users (id, username, email, password, token) VALUES ('${data.id}', '${data.username}', '${data.email}', '${data.password}', '${data.token}')`;
+  const query = `insert into users (user_id, email, username, password, token) VALUES ('${data.user_id}', '${data.email}', '${data.username}', '${data.password}', '${data.token}')`;
   console.log(req.body.username);
   db.query(query, (err, result) => {
     if (err) throw err;
