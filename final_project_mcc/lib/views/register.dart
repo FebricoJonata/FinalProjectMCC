@@ -131,7 +131,7 @@ class _RegisterState extends State<Register> {
                       //   print(futureUser);
                       // });
                   String url =
-                      "http://localhost:3000/users/test"; // ganti link localhost
+                      "http://108.0.5359.126:3000/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",
