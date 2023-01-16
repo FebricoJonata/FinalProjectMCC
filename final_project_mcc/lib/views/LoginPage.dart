@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:final_project_mcc/models/user.dart';
 import 'package:final_project_mcc/views/HomePage.dart';
 import 'package:final_project_mcc/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart' as http;
 // import 'package:flutter_svg/flutter_svg.dart';
 
 // class LoginPage extends StatelessWidget {
@@ -24,6 +28,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
   bool _isObscure = true;
 
   @override
@@ -64,6 +70,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(20)),
                       hintText: "Input your Username",
                       labelText: "Username"),
+                  controller: usernameController,
                 ),
 
                 SizedBox(
@@ -90,6 +97,7 @@ class _LoginState extends State<Login> {
                     labelText: "Password",
                     // suffixIcon: Icon(Icons.remove_red_eye_rounded)
                   ),
+                  controller: passwordController,
                 ),
 
                 SizedBox(
@@ -100,13 +108,34 @@ class _LoginState extends State<Login> {
                 ElevatedButton(
                   // login button
                   onPressed: () {
-                    // masukin validasi
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         RouterGenerator.generateRoute(RouteSettings(
                           name: '/',
                         )));
                   },
+                    // masukin validasi
+                  //   if (validasi(usernameController, passwordController, context)) {
+                  // String url =
+                  //     "http://localhost:3000/users/login/usernameController.text"; // ganti link localhost
+                  //     final response = await http.get(Uri.parse(url),
+                  //     headers: {
+                  //       "Content-Type": "application/json; charset=UTF-8",
+                  //       "Accept": "application/json"
+                  //     });
+
+
+                  // if (response.body.isNotEmpty) {
+                  //   User user = User.fromJson(jsonDecode(response.body));
+                  //   if(user.email==null && user.password==null)
+                  //   await prefs.setString("token", authUser.token);
+                    
+                  // }
+                // )
+                // }
+                // }
+
+                  // },
                   child: Text(
                     "Login",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -194,4 +223,38 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+bool validasi(
+    TextEditingController usernameController,
+    TextEditingController passwordController,
+    context) {
+  String pattern = r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])';
+  RegExp regex = RegExp(pattern);
+
+  if (usernameController.text.isEmpty ||
+      passwordController.text.isEmpty) {
+    const snackBar = SnackBar(content: Text("All fields must be filled!"));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    return false;
+  } else if (usernameController.text.length < 4) {
+    const snackBar =
+        SnackBar(content: Text("Username must be at least 4 characters long"));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    return false;
+  } else if (!regex.hasMatch(passwordController.text)) {
+    const snackBar = SnackBar(
+        content: Text(
+            "Password must contains at least 1 upper, lower, and number character"));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    return false;
+  // } else if () {
+  //   const snackBar = SnackBar(
+  //       content:
+  //           Text("The field Confirm Password is not the same as Password"));
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //   return false;
+  }
+
+  return true;
 }

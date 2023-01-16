@@ -8,15 +8,24 @@ router.get("/read", function (req, res, next) {
   const sql = "SELECT * FROM users";
   db.query(sql, function (err, result) {
     if (err) throw err;
-    res.send(result)
+    res.send(result);
     console.log(result);
     res.send(result);
   });
 });
 
-router.get("/login", function (req, res, next) {
+router.post("/login", function (req, res, next) {
   const data = req.body;
   const query = `select * from users where email = "${data.email}" and password = "${data.password}"`;
+  db.query(query, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+router.get("/login/{id}", function (req, res, next) {
+  const data = req.body;
+  const query = `select * from users where username = "${data.username}" and password = "${data.password}"`;
   db.query(query, (err, result) => {
     if (err) throw err;
     res.send(result);
