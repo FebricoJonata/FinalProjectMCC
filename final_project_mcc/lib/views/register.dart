@@ -1,4 +1,6 @@
 import 'dart:convert';
+// import 'dart:html';
+import 'dart:io';
 
 import 'package:final_project_mcc/route.dart';
 import 'package:final_project_mcc/models/user.dart';
@@ -23,16 +25,19 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   late User user;
+  late Future <bool> futureUser;
+  // String url = "http://localhost:3000/users/register";
 
   bool _isObscure = true;
 
   // Future<bool> registerUser(
   //     String email, String username, String password) async {
-  //   String url = "${Hosting.main}/users/register";
+    
   //   var resp = await http.post(Uri.parse(url),
   //       headers: {"Content-Type": "application/json"},
   //       body: jsonEncode(
   //           {'email': email, 'username': username, 'password': password}));
+
   //   if (resp.statusCode == 200) {
   //     return true;
   //   } else {
@@ -115,7 +120,7 @@ class _RegisterState extends State<Register> {
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
                   String url =
-                      "http://localhost:3000/users/test"; // ganti link localhost
+                      "http://localhost:3000/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",
@@ -229,4 +234,13 @@ bool validasi(
   }
 
   return true;
+}
+
+
+void addCorsHeaders(HttpResponse response) {
+  response.headers.add('Access-Control-Allow-Origin', '*');
+  response.headers
+      .add('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.add('Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept');
 }
