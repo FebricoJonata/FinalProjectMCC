@@ -113,22 +113,26 @@ class _LoginState extends State<Login> {
                         RouterGenerator.generateRoute(RouteSettings(
                           name: '/',
                         )));
+
+                        // validasi
+                        if (validasi(usernameController, passwordController, context)) {
+                  String url =
+                        "http://localhost:3000/users/login/usernameController.text"; // ganti link localhost
+                        final response = await http.get(Uri.parse(url),
+                        headers: {
+                          "Content-Type": "application/json; charset=UTF-8",
+                          "Accept": "application/json"
+                        });
+                        }
+
+
+                  if (response.body.isNotEmpty) {
+                    User user = User.fromJson(jsonDecode(response.body));
+                    if(user.email==null && user.password==null)
+                    await prefs.setString("token", authUser.token);
                   },
                     // masukin validasi
-                  //   if (validasi(usernameController, passwordController, context)) {
-                  // String url =
-                  //     "http://localhost:3000/users/login/usernameController.text"; // ganti link localhost
-                  //     final response = await http.get(Uri.parse(url),
-                  //     headers: {
-                  //       "Content-Type": "application/json; charset=UTF-8",
-                  //       "Accept": "application/json"
-                  //     });
-
-
-                  // if (response.body.isNotEmpty) {
-                  //   User user = User.fromJson(jsonDecode(response.body));
-                  //   if(user.email==null && user.password==null)
-                  //   await prefs.setString("token", authUser.token);
+                    
                     
                   // }
                 // )

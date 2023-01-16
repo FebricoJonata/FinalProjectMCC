@@ -127,7 +127,7 @@ class _RegisterState extends State<Register> {
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
                   String url =
-                      "http://localhost:3000/users/register"; // ganti link localhost
+                      "http://127.0.0.1:3000/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",

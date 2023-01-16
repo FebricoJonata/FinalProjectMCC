@@ -12,7 +12,8 @@ var fishesRouter = require('./routes/fishes');
 var app = express();
 
 app.use(cors({
-  credentials: false,
+  origin: ["http://localhost:64839", "http://127.0.0.1:64839"],
+  credentials: true,
 }));
 
 
