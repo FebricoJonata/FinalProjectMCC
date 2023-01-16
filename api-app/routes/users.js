@@ -25,7 +25,7 @@ router.post("/login", function (req, res, next) {
 
 router.get("/login/{id}", function (req, res, next) {
   const data = req.body;
-  const query = `select * from users where username = "${data.username}" and password = "${data.password}"`;
+  const query = `select * from users where username = "${data.username}"`;
   db.query(query, (err, result) => {
     if (err) throw err;
     res.send(result);

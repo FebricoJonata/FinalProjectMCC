@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:final_project_mcc/Hosting.dart';
 import 'package:final_project_mcc/models/user.dart';
 import 'package:final_project_mcc/views/HomePage.dart';
 import 'package:final_project_mcc/route.dart';
@@ -107,39 +108,30 @@ class _LoginState extends State<Login> {
 
                 ElevatedButton(
                   // login button
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        RouterGenerator.generateRoute(RouteSettings(
-                          name: '/',
-                        )));
-
+                  onPressed: () async {
                         // validasi
                         if (validasi(usernameController, passwordController, context)) {
                   String url =
-                        "http://localhost:3000/users/login/usernameController.text"; // ganti link localhost
+                        "http://${Hosting.main}/users/login/${usernameController.text}"; // ganti link localhost
                         final response = await http.get(Uri.parse(url),
                         headers: {
                           "Content-Type": "application/json; charset=UTF-8",
                           "Accept": "application/json"
                         });
+                        if (response.body.isNotEmpty) {
+                          User user = User.fromJson(jsonDecode(response.body));
+                          if (user.password==passwordController.text){
+                            Navigator.pushReplacement(
+                            context,
+                            RouterGenerator.generateRoute(RouteSettings(
+                              name: '/',
+                            )));
+                          }
                         }
-
-
-                  if (response.body.isNotEmpty) {
-                    User user = User.fromJson(jsonDecode(response.body));
-                    if(user.email==null && user.password==null)
-                    await prefs.setString("token", authUser.token);
+                        
+                    }               
                   },
-                    // masukin validasi
-                    
-                    
-                  // }
-                // )
-                // }
-                // }
 
-                  // },
                   child: Text(
                     "Login",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
