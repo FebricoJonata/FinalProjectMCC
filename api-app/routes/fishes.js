@@ -6,7 +6,7 @@ const { route } = require("./index.js");
 /* GET fishes listing. */
 router.get("/allfishes", function (req, res, next) {
   const query = `select image_path, name, price from fishes f`;
-  
+
   db.query(query, function (err, result) {
     if (err) throw err;
     console.log(result);
@@ -24,10 +24,9 @@ router.post("/addfish", function (req, res, next) {
   });
 });
 
-router.post("/editfish", function (req, res, next) {
+router.patch("/editfish", function (req, res, next) {
   const data = req.body;
-  // diganti
-  const query = `insert into users (id, username, email, password, token) VALUES ('${data.id}', '${data.username}', '${data.email}', '${data.password}', '${data.token}')`;
+  const query = `update fishes (name, description, price, image_path) set ('${data.name}', '${data.description}', '${data.price}', '${data.image_path}') WHERE id = '${data.id}'`;
   console.log(req.body.username);
   db.query(query, (err, result) => {
     if (err) throw err;
@@ -35,8 +34,13 @@ router.post("/editfish", function (req, res, next) {
   });
 });
 
-router.get("/trial", function (req, res, next){
-  console.log("Hello");
+router.delete("/delete", function (req, res, next) {
+  const data = req.body;
+  const query = `delete from fishes where id = ${data.id}`;
+  db.query(query, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
 });
 
 module.exports = router;

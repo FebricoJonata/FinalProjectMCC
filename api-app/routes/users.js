@@ -9,7 +9,7 @@ router.get("/read", function (req, res, next) {
 
   db.query(sql, function (err, result) {
     if (err) throw err;
-    res.send(result)
+    res.send(result);
     console.log(result);
     res.send(result);
   });
@@ -33,10 +33,6 @@ router.post("/register", function (req, res, next) {
     if (err) throw err;
     res.send(result);
   });
-});
-
-router.get("/trial", function (req, res, next){
-  console.log("Hello");
 });
 
 module.exports = router;

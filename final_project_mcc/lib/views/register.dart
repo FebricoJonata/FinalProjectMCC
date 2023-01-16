@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../Hosting.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -24,19 +26,19 @@ class _RegisterState extends State<Register> {
 
   bool _isObscure = true;
 
-  Future<bool> registerUser(
-      String email, String username, String password) async {
-    String url = "localhost:3000/users/register";
-    var resp = await http.post(Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(
-            {'email': email, 'username': username, 'password': password}));
-    if (resp.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // Future<bool> registerUser(
+  //     String email, String username, String password) async {
+  //   String url = "${Hosting.main}/users/register";
+  //   var resp = await http.post(Uri.parse(url),
+  //       headers: {"Content-Type": "application/json"},
+  //       body: jsonEncode(
+  //           {'email': email, 'username': username, 'password': password}));
+  //   if (resp.statusCode == 200) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,15 +98,6 @@ class _RegisterState extends State<Register> {
             TextFormField(
               obscureText: _isObscure,
               decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _isObscure ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    },
-                  ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
                   hintText: "Input your password again",
@@ -118,7 +111,7 @@ class _RegisterState extends State<Register> {
             ElevatedButton(
               // register button
               onPressed: () async {
-                // detail validasinya di paling bawah
+                //detail validasinya di paling bawah
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
                   String url =
