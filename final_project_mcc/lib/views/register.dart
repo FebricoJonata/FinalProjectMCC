@@ -25,14 +25,14 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   late User user;
-  late Future <bool> futureUser;
+  late Future<bool> futureUser;
   // String url = "http://localhost:3000/users/register";
 
   bool _isObscure = true;
 
   // Future<bool> registerUser(
   //     String email, String username, String password) async {
-    
+
   //   var resp = await http.post(Uri.parse(url),
   //       headers: {"Content-Type": "application/json"},
   //       body: jsonEncode(
@@ -120,7 +120,7 @@ class _RegisterState extends State<Register> {
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
                   String url =
-                      "http://localhost:3000/users/register"; // ganti link localhost
+                      "http://${Hosting.main}/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",
@@ -236,11 +236,9 @@ bool validasi(
   return true;
 }
 
-
 void addCorsHeaders(HttpResponse response) {
   response.headers.add('Access-Control-Allow-Origin', '*');
-  response.headers
-      .add('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS');
   response.headers.add('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept');
 }
