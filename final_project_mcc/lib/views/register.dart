@@ -126,12 +126,8 @@ class _RegisterState extends State<Register> {
                 // detail validasinya di paling bawah
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
-                      // setState(() {
-                      //   futureUser = registerUser(emailController.text, usernameController.text, passwordController.text);
-                      //   print(futureUser);
-                      // });
                   String url =
-                      "http://108.0.5359.126:3000/users/register"; // ganti link localhost
+                      "http://localhost:3000/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",
