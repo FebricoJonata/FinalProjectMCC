@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../Hosting.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -23,14 +25,14 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   late User user;
-  late Future <bool> futureUser;
+  late Future<bool> futureUser;
   // String url = "http://localhost:3000/users/register";
 
   bool _isObscure = true;
 
   // Future<bool> registerUser(
   //     String email, String username, String password) async {
-    
+
   //   var resp = await http.post(Uri.parse(url),
   //       headers: {"Content-Type": "application/json"},
   //       body: jsonEncode(
@@ -101,15 +103,6 @@ class _RegisterState extends State<Register> {
             TextFormField(
               obscureText: _isObscure,
               decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _isObscure ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    },
-                  ),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
                   hintText: "Input your password again",
@@ -123,11 +116,11 @@ class _RegisterState extends State<Register> {
             ElevatedButton(
               // register button
               onPressed: () async {
-                // detail validasinya di paling bawah
+                //detail validasinya di paling bawah
                 if (validasi(usernameController, emailController,
                     passwordController, confirmPasswordController, context)) {
                   String url =
-                      "http://127.0.0.1:3000/users/register"; // ganti link localhost
+                      "http://${Hosting.main}/users/register"; // ganti link localhost
                   final response = await http.post(Uri.parse(url),
                       headers: {
                         "Content-Type": "application/json; charset=UTF-8",
@@ -243,11 +236,9 @@ bool validasi(
   return true;
 }
 
-
 void addCorsHeaders(HttpResponse response) {
   response.headers.add('Access-Control-Allow-Origin', '*');
-  response.headers
-      .add('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS');
   response.headers.add('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept');
 }

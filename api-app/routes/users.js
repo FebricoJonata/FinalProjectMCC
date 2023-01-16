@@ -8,7 +8,7 @@ router.get("/read", function (req, res, next) {
   const sql = "SELECT * FROM users";
   db.query(sql, function (err, result) {
     if (err) throw err;
-    res.send(result)
+    res.send(result);
     console.log(result);
     res.send(result);
   });

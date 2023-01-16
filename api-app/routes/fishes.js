@@ -6,7 +6,7 @@ const { route } = require("./index.js");
 /* GET fishes listing. */
 router.get("/allfishes", function (req, res, next) {
   const query = `select image_path, name, price from fishes f`;
-  
+
   db.query(query, function (err, result) {
     if (err) throw err;
     console.log(result);
@@ -35,7 +35,7 @@ router.post("/addfish", function (req, res, next) {
   });
 });
 
-router.post("/editfish", function (req, res, next) {
+router.patch("/editfish", function (req, res, next) {
   const data = req.body;
   // diganti
   const query = `update fishes set name = '${data.name}', description= '${data.description}', price = '${data.price}', image_path = '${data.image_path}' where id = '${data.id}' and user_id = '${data.user_id}'`;

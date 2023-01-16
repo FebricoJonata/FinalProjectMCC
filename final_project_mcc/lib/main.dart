@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: const Register(),
       onGenerateRoute: RouterGenerator.generateRoute,
-      // initialRoute: , --> ini buat inisialisasi page pertama
+      // initialRoute: const Register(), 
+      // --> ini buat inisialisasi page pertama
     );
   }
 }
